@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#333333"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="492dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="13dp"
+        android:text="Метеогид"
+        android:textAlignment="center"
+        android:textColor="#FFFFFF"
+        android:textSize="36sp" />
+
+    <EditText
+        android:id="@+id/etText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="10dp"
+        android:ems="10"
+        android:hint="Введите город..."
+        android:backgroundTint="@color/white"
+        android:inputType="textPersonName"
+        android:textColor="#FFFFFF"
+        android:textColorHint="@color/white" />
+
+    <Button
+        android:id="@+id/btnSaveCity"
+        android:layout_width="wrap_content"
+        android:layout_height="38dp"
+        android:layout_below="@+id/textView"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="80dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="28dp"
+        android:backgroundTint="#3E3E3E"
+        android:text="Сменить..."
+        android:textColor="#FFFFFF"
+        android:textSize="12sp"
+        app:iconTint="#FFFFFF" />
+</RelativeLayout>
