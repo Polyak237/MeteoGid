@@ -19,7 +19,7 @@
         android:textSize="36sp" />
 
     <EditText
-        android:id="@+id/etText"
+        android:id="@+id/city"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/textView"
@@ -47,4 +47,18 @@
         android:textColor="#FFFFFF"
         android:textSize="12sp"
         app:iconTint="#FFFFFF" />
+
+    <TextView
+        android:id="@+id/Waiting"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/city"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="0dp"
+        android:gravity="center"
+        android:textAlignment="center"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp" />
 </RelativeLayout>
