@@ -3,31 +3,30 @@ package com.example.meteogid;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.json.JSONException;
-import org.json.JSONObject;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 
 import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener{
+public class MainActivity extends AppCompatActivity{
 
+    ImageView pogoda;
     TextView waiting;
     EditText city;
-    Button btnSaveCity;
+    Button btnSaveCity, more;
     SharedPreferences sPref;
 
     final String SavedCity = "Город был изменён";
@@ -39,28 +38,61 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         waiting = (TextView)findViewById(R.id.Waiting);
         city = (EditText)findViewById(R.id.city);
+        pogoda = (ImageView)findViewById(R.id.Pogoda);
 
-        btnSaveCity = (Button)findViewById(R.id.btnSaveCity);
-        btnSaveCity.setOnClickListener(this);
-
+        addListenerOnButtonMore ();
+        addListenerOnSave ();
         loadtext();
-        showdata();
-    }
 
-
-    @Override
-    public void onClick(View v) {
-        if (v.getId() == R.id.btnSaveCity){
-            savetext();
-            showdata();
+        switch (city.getText().toString()) {
+            case "":
+                break;
+            default:
+                showdata();
+                break;
         }
     }
+
+
+
+    public void addListenerOnSave () {
+        btnSaveCity = (Button)findViewById(R.id.btnSaveCity);
+        btnSaveCity.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (city.getText().toString().equals("")) {
+                            Toast.makeText(MainActivity.this, "Введите название города", Toast.LENGTH_SHORT).show();
+                        } else {
+                            savetext();
+                            showdata();
+                        }
+                    }
+                }
+        );
+    }
+
+
+    public void addListenerOnButtonMore () {
+        more = (Button)findViewById(R.id.More);
+        more.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                            Intent intent = new Intent(".Podrobno");
+                            startActivity(intent);
+                    }
+                }
+        );
+    }
+
+
 
     private void savetext() {
         sPref = getPreferences(MODE_PRIVATE);
         SharedPreferences.Editor ed = sPref.edit();
         ed.putString(SavedCity, city.getText().toString());
-        ed.commit();
+        ed.apply();
         Toast.makeText(MainActivity.this, "Город сохранён", Toast.LENGTH_SHORT).show();
     }
 
@@ -73,69 +105,85 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     public void showdata(){
         String City = city.getText().toString();
-        String key = "a1f886dec466dde0dd09b3f75fa9455d";
-        String url = "https://api.openweathermap.org/data/2.5/weather?q=" + City + "&appid=" + key + "&units=metric&lang=ru";
-
-        new GetURLData().execute(url);
-
+        new GetURLData().execute();
     }
 
-    private class GetURLData extends AsyncTask<String, String, String> {
+
+
+
+    private class GetURLData extends AsyncTask<String, String, String[]> {
 
         protected void onPreExecute() {
             waiting.setText("Ожидайте...");
         }
 
         @Override
-        protected String doInBackground(String... strings) {
+        protected String[] doInBackground(String... strings) {
             HttpURLConnection connection = null;
             BufferedReader reader = null;
 
+
             try {
-                URL url = new URL(strings[0]);
-                connection = (HttpURLConnection) url.openConnection();
-                connection.connect();
+                String cityText = city.getText().toString();
+                Document document = Jsoup.connect("https://yandex.ru/pogoda/search?request=" + cityText).get();
+                Element hlink= document.selectFirst("li[class=place-list__item]").selectFirst("a");
+                String link=hlink.attr("href");
+                document = Jsoup.connect("https://yandex.ru"+link).get();
 
-                InputStream stream = connection.getInputStream();
-                reader = new BufferedReader(new InputStreamReader(stream));
+                Element currentTemp= document.selectFirst("div[class=temp fact__temp fact__temp_size_s]").selectFirst("span[class=temp__value temp__value_with-unit]");
+                Element situation = document.selectFirst("div[class=link__condition day-anchor i-bem]");
+                String wind = document.selectFirst("span[class=wind-speed]").text();
 
-                StringBuffer buffer = new StringBuffer();
-                String line = "";
+                System.out.println(document.selectFirst("span[class=term term_orient_v fact__pressure]"));
+                System.out.println(document.selectFirst("span[class=term term_orient_v fact__humidity]"));
 
-                while((line = reader.readLine()) != null)
-                    buffer.append(line).append("\n");
 
-                return buffer.toString();
-            } catch (MalformedURLException e) {
+                String[] arr = new String[2];
+                arr[0] = situation.text();
+                arr[1] = situation.text() + "\n" + currentTemp.text()+"°С ";
+                return arr;
+
+            } catch (Exception e) {
                 e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            } finally {
-                if (connection != null)
-                    connection.disconnect();
-
-                try {
-                    if (reader != null)
-                        reader.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
             }
 
             return null;
         }
 
-        @SuppressLint("SetTextI18n")
         @Override
-        protected void onPostExecute(String result) {
-            super.onPostExecute(result);
+        protected void onPostExecute(String[] arr ) {
+            super.onPostExecute(arr);
 
-            try {
-                JSONObject jsonObject = new JSONObject(result);
-                waiting.setText("Температура: " + jsonObject.getJSONObject("main").getDouble("temp"));
-            } catch (JSONException e) {
-                e.printStackTrace();
+            switch (arr[0]) {
+                case "Ясно":
+                    pogoda.setImageResource(R.drawable.sun);
+                    break;
+                case "Пасмурно":
+                    pogoda.setImageResource(R.drawable.cloudy);
+                    break;
+                case ("Малооблачно"):
+                    pogoda.setImageResource(R.drawable.smallcloudy);
+                    break;
+                case ("Облачно с прояснениями"):
+                    pogoda.setImageResource(R.drawable.smallcloudy);
+                    break;
+                case ("Небольшой снег"):
+                    pogoda.setImageResource(R.drawable.smallsnow);
+                    break;
+                case ("Снег"):
+                    pogoda.setImageResource(R.drawable.snow);
+                    break;
+                case ("Небольшой дождь"):
+                    pogoda.setImageResource(R.drawable.smallrain);
+                    break;
+                case ("Дождь"):
+                    pogoda.setImageResource(R.drawable.rain);
+                    break;
+                default: {}
+                break;
             }
+
+                waiting.setText(arr[1]);
 
         }
     }
