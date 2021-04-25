@@ -14,12 +14,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
 import java.io.BufferedReader;
 import java.net.HttpURLConnection;
+import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity{
 
@@ -62,7 +65,7 @@ public class MainActivity extends AppCompatActivity{
                     @Override
                     public void onClick(View v) {
                         if (city.getText().toString().equals("")) {
-                            Toast.makeText(MainActivity.this, "Введите название города", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MainActivity.this, "Введите название города", Toast.LENGTH_LONG).show();
                         } else {
                             savetext();
                             showdata();
@@ -111,20 +114,20 @@ public class MainActivity extends AppCompatActivity{
 
 
 
-    private class GetURLData extends AsyncTask<String, String, String[]> {
+    private class GetURLData extends AsyncTask<String, String, String> {
 
         protected void onPreExecute() {
             waiting.setText("Ожидайте...");
         }
 
         @Override
-        protected String[] doInBackground(String... strings) {
+        protected String doInBackground(String... strings) {
             HttpURLConnection connection = null;
             BufferedReader reader = null;
 
 
             try {
-                String cityText = city.getText().toString();
+         /*       String cityText = city.getText().toString();
                 Document document = Jsoup.connect("https://yandex.ru/pogoda/search?request=" + cityText).get();
                 Element hlink= document.selectFirst("li[class=place-list__item]").selectFirst("a");
                 String link=hlink.attr("href");
@@ -132,16 +135,14 @@ public class MainActivity extends AppCompatActivity{
 
                 Element currentTemp= document.selectFirst("div[class=temp fact__temp fact__temp_size_s]").selectFirst("span[class=temp__value temp__value_with-unit]");
                 Element situation = document.selectFirst("div[class=link__condition day-anchor i-bem]");
-                String wind = document.selectFirst("span[class=wind-speed]").text();
+                Element city = document.selectFirst("span[class=breadcrumbs__title]");
+                String wind = document.selectFirst("span[class=wind-speed]").text(); */
 
-                System.out.println(document.selectFirst("span[class=term term_orient_v fact__pressure]"));
-                System.out.println(document.selectFirst("span[class=term term_orient_v fact__humidity]"));
+                String href = "https://api.openweathermap.org/data/2.5/weather?q="+city.getText()+"&appid=a1f886dec466dde0dd09b3f75fa9455d&units=metric&lang=ru";
+                System.out.println(href);
+                JSONObject Json=JsonReader.readJsonFromUrl(href);
 
-
-                String[] arr = new String[2];
-                arr[0] = situation.text();
-                arr[1] = situation.text() + "\n" + currentTemp.text()+"°С ";
-                return arr;
+                return Json.toString();
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -150,40 +151,61 @@ public class MainActivity extends AppCompatActivity{
             return null;
         }
 
+        @SuppressLint("SetTextI18n")
         @Override
-        protected void onPostExecute(String[] arr ) {
-            super.onPostExecute(arr);
+        protected void onPostExecute(String weather) {
+            super.onPostExecute(weather);
+            JSONObject jsonObject = null;
+            int currentTemp=0;
+            int currentWet=0;
+            int currentPreasure=0;
+            String name="";
+            String sit = null;
 
-            switch (arr[0]) {
-                case "Ясно":
+            try {
+                 jsonObject = new JSONObject(weather);
+                 currentTemp= (int) jsonObject.getJSONObject("main").getDouble("temp");
+                 currentPreasure = (int) jsonObject.getJSONObject("main").getDouble("pressure");
+                 currentWet = (int) jsonObject.getJSONObject("main").getDouble("humidity");
+                 sit= jsonObject.getJSONArray("weather").getJSONObject(0).getString("description");
+                 name=jsonObject.getString("name");
+                 city.setText(name);
+                System.out.println(currentTemp);
+            } catch (JSONException e) {
+                System.out.println("Ошибка парсинга");
+            }
+
+
+            switch (Objects.requireNonNull(sit)) {
+                case "ясно":
                     pogoda.setImageResource(R.drawable.sun);
                     break;
-                case "Пасмурно":
+                case "пасмурно":
                     pogoda.setImageResource(R.drawable.cloudy);
                     break;
-                case ("Малооблачно"):
+                case ("малооблачно"):
+                case ("облачно с прояснениями"):
                     pogoda.setImageResource(R.drawable.smallcloudy);
                     break;
-                case ("Облачно с прояснениями"):
-                    pogoda.setImageResource(R.drawable.smallcloudy);
-                    break;
-                case ("Небольшой снег"):
+                case ("небольшой снег"):
                     pogoda.setImageResource(R.drawable.smallsnow);
                     break;
-                case ("Снег"):
+                case ("снег"):
                     pogoda.setImageResource(R.drawable.snow);
                     break;
-                case ("Небольшой дождь"):
+                case ("небольшой дождь"):
                     pogoda.setImageResource(R.drawable.smallrain);
                     break;
-                case ("Дождь"):
+                case ("дождь"):
                     pogoda.setImageResource(R.drawable.rain);
                     break;
                 default: {}
                 break;
             }
 
-                waiting.setText(arr[1]);
+          waiting.setText(String.valueOf(sit)+"\n"+String.valueOf(currentTemp)+"°С");
+
+            Toast.makeText(MainActivity.this, "Найденное место: " + name, Toast.LENGTH_LONG).show();
 
         }
     }
