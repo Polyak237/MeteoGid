@@ -162,7 +162,6 @@ public class MainActivity extends AppCompatActivity{
 
 
 
-
             try {
 
                 currentTemp= (int) jsonObject.getJSONObject("current").getDouble("temp");
@@ -172,46 +171,74 @@ public class MainActivity extends AppCompatActivity{
 
                 Long unix = jsonObject.getJSONObject("current").getLong("dt");
                 String zone = jsonObject.getString("timezone");
-                int tz_off = jsonObject.getInt("timezone_offset");
+
+                //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~          Корректировка даты            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
                 Date date = new Date(unix*1000L);
-                SimpleDateFormat sdf = new SimpleDateFormat("MMM dd,yyyy HH:mm Z");
-                sdf.setTimeZone(TimeZone.getTimeZone(zone));
+                SimpleDateFormat sdfcur = new SimpleDateFormat("dd MMM, HH:mm");
+                SimpleDateFormat sdfcal = new SimpleDateFormat("dd MMM, E");
+                sdfcur.setTimeZone(TimeZone.getTimeZone(zone));
+                String curdate = sdfcur.format(date);
 
-                
-                String formattedDate = sdf.format(date);
-                System.out.println(formattedDate);
+                //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~          Завтра            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-
-
+                Long unix1 = jsonObject.getJSONArray("daily").getJSONObject(1).getLong("dt");
+                Date date1 = new Date(unix1*1000L);
+                String date1X = sdfcal.format(date1);
                 sit1 = (TextView) findViewById(R.id.sit1);
                 temp1 = (TextView) findViewById(R.id.temp1);
-                sit1.setText("Завтра: " + jsonObject.getJSONArray("daily").getJSONObject(1).getJSONArray("weather").getJSONObject(0).getString("description"));
+                sit1.setText(date1X + " \n" + jsonObject.getJSONArray("daily").getJSONObject(1).getJSONArray("weather").getJSONObject(0).getString("description"));
                 temp1.setText(String.valueOf( (int) jsonObject.getJSONArray("daily").getJSONObject(1).getJSONObject("temp").getDouble("day")) + "°C");
 
+                //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~          Послезавтра           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+                Long unix2 = jsonObject.getJSONArray("daily").getJSONObject(2).getLong("dt");
+                Date date2 = new Date(unix2*1000L);
+                sdfcal.setTimeZone(TimeZone.getTimeZone(zone));
+                String date2X = sdfcal.format(date2);
                 sit2 = (TextView) findViewById(R.id.sit2);
                 temp2 = (TextView) findViewById(R.id.temp2);
-                sit2.setText("Завтра: " + jsonObject.getJSONArray("daily").getJSONObject(2).getJSONArray("weather").getJSONObject(0).getString("description"));
+                sit2.setText(date2X + " \n"+ jsonObject.getJSONArray("daily").getJSONObject(2).getJSONArray("weather").getJSONObject(0).getString("description"));
                 temp2.setText(String.valueOf( (int) jsonObject.getJSONArray("daily").getJSONObject(2).getJSONObject("temp").getDouble("day")) + "°C");
 
+                //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~          Через 2 дня            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+                Long unix3 = jsonObject.getJSONArray("daily").getJSONObject(3).getLong("dt");
+                Date date3 = new Date(unix3*1000L);
+                String date3X = sdfcal.format(date3);
                 sit3 = (TextView) findViewById(R.id.sit3);
                 temp3 = (TextView) findViewById(R.id.temp3);
-                sit3.setText("Завтра: " + jsonObject.getJSONArray("daily").getJSONObject(3).getJSONArray("weather").getJSONObject(0).getString("description"));
+                sit3.setText(date3X + " \n"+ jsonObject.getJSONArray("daily").getJSONObject(3).getJSONArray("weather").getJSONObject(0).getString("description"));
                 temp3.setText(String.valueOf( (int) jsonObject.getJSONArray("daily").getJSONObject(3).getJSONObject("temp").getDouble("day")) + "°C");
 
+                //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~          Через 3 дня            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+                Long unix4 = jsonObject.getJSONArray("daily").getJSONObject(4).getLong("dt");
+                Date date4 = new Date(unix4*1000L);
+                String date4X = sdfcal.format(date4);
                 sit4 = (TextView) findViewById(R.id.sit4);
                 temp4 = (TextView) findViewById(R.id.temp4);
-                sit4.setText("Завтра: " + jsonObject.getJSONArray("daily").getJSONObject(4).getJSONArray("weather").getJSONObject(0).getString("description"));
+                sit4.setText(date4X + " \n"+ jsonObject.getJSONArray("daily").getJSONObject(4).getJSONArray("weather").getJSONObject(0).getString("description"));
                 temp4.setText(String.valueOf( (int) jsonObject.getJSONArray("daily").getJSONObject(4).getJSONObject("temp").getDouble("day")) + "°C");
 
+                //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~          Через 4 дня            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+                Long unix5 = jsonObject.getJSONArray("daily").getJSONObject(5).getLong("dt");
+                Date date5 = new Date(unix5*1000L);
+                String date5X = sdfcal.format(date5);
                 sit5 = (TextView) findViewById(R.id.sit5);
                 temp5 = (TextView) findViewById(R.id.temp5);
-                sit5.setText("Завтра: " + jsonObject.getJSONArray("daily").getJSONObject(5).getJSONArray("weather").getJSONObject(0).getString("description"));
+                sit5.setText(date5X + " \n"+ jsonObject.getJSONArray("daily").getJSONObject(5).getJSONArray("weather").getJSONObject(0).getString("description"));
                 temp5.setText(String.valueOf( (int) jsonObject.getJSONArray("daily").getJSONObject(5).getJSONObject("temp").getDouble("day")) + "°C");
 
+                //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~          Через 5 дней            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+                Long unix6 = jsonObject.getJSONArray("daily").getJSONObject(6).getLong("dt");
+                Date date6 = new Date(unix6*1000L);
+                String date6X = sdfcal.format(date6);
                 sit6 = (TextView) findViewById(R.id.sit6);
                 temp6 = (TextView) findViewById(R.id.temp6);
-                sit6.setText("Завтра: " + jsonObject.getJSONArray("daily").getJSONObject(6).getJSONArray("weather").getJSONObject(0).getString("description"));
+                sit6.setText(date6X + " \n"+ jsonObject.getJSONArray("daily").getJSONObject(6).getJSONArray("weather").getJSONObject(0).getString("description"));
                 temp6.setText(String.valueOf( (int) jsonObject.getJSONArray("daily").getJSONObject(6).getJSONObject("temp").getDouble("day")) + "°C");
 
 
