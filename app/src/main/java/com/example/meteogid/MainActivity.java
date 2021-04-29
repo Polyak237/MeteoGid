@@ -17,7 +17,10 @@ import android.widget.Toast;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Objects;
+import java.util.TimeZone;
 
 public class MainActivity extends AppCompatActivity{
 
@@ -154,19 +157,32 @@ public class MainActivity extends AppCompatActivity{
             int currentTemp=0;
             int currentWet=0;
             int currentPreasure=0;
-            String sit = null;
+            String currentsit = null;
+
+
+
+
+
+
 
             try {
+
+                String time;
+                SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
+                dateFormat.setTimeZone(TimeZone.getTimeZone(jsonObject.getString("timezone")));
+                time = dateFormat.format(new Date());
+
+
+
                 currentTemp= (int) jsonObject.getJSONObject("current").getDouble("temp");
                 currentPreasure = (int) jsonObject.getJSONObject("current").getDouble("pressure");
                 currentWet = (int) jsonObject.getJSONObject("current").getDouble("humidity");
-                sit= jsonObject.getJSONObject("current").getJSONArray("weather").getJSONObject(0).getString("description");
-                System.out.println(currentTemp);
+                currentsit= jsonObject.getJSONObject("current").getJSONArray("weather").getJSONObject(0).getString("description");
             } catch (JSONException e) {
                 System.out.println("Ошибка парсинга");
             }
 
-            switch (Objects.requireNonNull(sit)) {
+            switch (Objects.requireNonNull(currentsit)) {
                 case "ясно":
                     pogoda.setImageResource(R.drawable.sun);
                     break;
@@ -193,7 +209,7 @@ public class MainActivity extends AppCompatActivity{
                 break;
             }
 
-          waiting.setText(String.valueOf(sit)+"\n"+String.valueOf(currentTemp)+"°С");
+          waiting.setText(String.valueOf(currentsit)+"\n"+String.valueOf(currentTemp)+"°С");
 
             //Toast.makeText(MainActivity.this, "Найденное место: " + name, Toast.LENGTH_LONG).show();
 
