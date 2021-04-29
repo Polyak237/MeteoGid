@@ -17,6 +17,7 @@ import android.widget.Toast;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -164,10 +165,11 @@ public class MainActivity extends AppCompatActivity{
 
             try {
 
-                currentTemp= (int) jsonObject.getJSONObject("current").getDouble("temp");
-                currentPreasure = (int) jsonObject.getJSONObject("current").getDouble("pressure");
-                currentWet = (int) jsonObject.getJSONObject("current").getDouble("humidity");
+                currentTemp = (int) jsonObject.getJSONObject("current").getDouble("temp");
+                currentPreasure = jsonObject.getJSONObject("current").getInt("pressure");
+                currentWet = jsonObject.getJSONObject("current").getInt("humidity");
                 currentsit= jsonObject.getJSONObject("current").getJSONArray("weather").getJSONObject(0).getString("description");
+
 
                 Long unix = jsonObject.getJSONObject("current").getLong("dt");
                 String zone = jsonObject.getString("timezone");
@@ -240,8 +242,6 @@ public class MainActivity extends AppCompatActivity{
                 temp6 = (TextView) findViewById(R.id.temp6);
                 sit6.setText(date6X + " \n"+ jsonObject.getJSONArray("daily").getJSONObject(6).getJSONArray("weather").getJSONObject(0).getString("description"));
                 temp6.setText(String.valueOf( (int) jsonObject.getJSONArray("daily").getJSONObject(6).getJSONObject("temp").getDouble("day")) + "°C");
-
-
 
 
             } catch (JSONException e) {

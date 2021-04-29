@@ -107,7 +107,7 @@
 
                 <TextView
                     android:id="@+id/sit1"
-                    android:layout_width="275dp"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginStart="5dp"
                     android:text="Завтра:"
@@ -148,10 +148,10 @@
 
                 <TextView
                     android:id="@+id/sit2"
-                    android:layout_width="274dp"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginStart="5dp"
-                    android:text="Послезавтра:"
+                    android:text="..."
                     android:textAlignment="viewStart"
                     android:textSize="24sp" />
             </androidx.cardview.widget.CardView>
@@ -177,7 +177,7 @@
 
                 <TextView
                     android:id="@+id/sit3"
-                    android:layout_width="274dp"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginStart="5dp"
                     android:text="..."
@@ -206,7 +206,7 @@
 
                 <TextView
                     android:id="@+id/sit4"
-                    android:layout_width="273dp"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginStart="5dp"
                     android:text="..."
@@ -235,7 +235,7 @@
 
                 <TextView
                     android:id="@+id/sit5"
-                    android:layout_width="273dp"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginStart="5dp"
                     android:text="..."
@@ -264,7 +264,7 @@
 
                 <TextView
                     android:id="@+id/sit6"
-                    android:layout_width="273dp"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginStart="5dp"
                     android:text="..."
