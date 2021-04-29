@@ -16,12 +16,7 @@ import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
 
-import java.io.BufferedReader;
-import java.net.HttpURLConnection;
 import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity{
@@ -35,7 +30,7 @@ public class MainActivity extends AppCompatActivity{
     final String SavedCity = "Город был изменён";
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) { // Открытие приложения
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -58,7 +53,7 @@ public class MainActivity extends AppCompatActivity{
 
 
 
-    public void addListenerOnSave () {
+    public void addListenerOnSave () { // Действия при нажатии на кнопку смены города
         btnSaveCity = (Button)findViewById(R.id.btnSaveCity);
         btnSaveCity.setOnClickListener(
                 new View.OnClickListener() {
@@ -76,7 +71,7 @@ public class MainActivity extends AppCompatActivity{
     }
 
 
-    public void addListenerOnButtonMore () {
+    public void addListenerOnButtonMore () {  // Действия при нажатии на кнопку с подробностями
         more = (Button)findViewById(R.id.More);
         more.setOnClickListener(
                 new View.OnClickListener() {
@@ -91,7 +86,7 @@ public class MainActivity extends AppCompatActivity{
 
 
 
-    private void savetext() {
+    private void savetext() { // Функция сохранения введённого города
         sPref = getPreferences(MODE_PRIVATE);
         SharedPreferences.Editor ed = sPref.edit();
         ed.putString(SavedCity, city.getText().toString());
@@ -99,7 +94,7 @@ public class MainActivity extends AppCompatActivity{
         Toast.makeText(MainActivity.this, "Город сохранён", Toast.LENGTH_SHORT).show();
     }
 
-    public void loadtext() {
+    public void loadtext() { // Функция загрузки введённого города
         sPref = getPreferences(MODE_PRIVATE);
         String SavedText = sPref.getString(SavedCity, "");
         city.setText(SavedText);
@@ -114,35 +109,34 @@ public class MainActivity extends AppCompatActivity{
 
 
 
-    private class GetURLData extends AsyncTask<String, String, String> {
+    private class GetURLData extends AsyncTask<String, String, JSONObject> {
 
         protected void onPreExecute() {
             waiting.setText("Ожидайте...");
         }
 
         @Override
-        protected String doInBackground(String... strings) {
-            HttpURLConnection connection = null;
-            BufferedReader reader = null;
-
+        protected JSONObject doInBackground(String... strings) {
 
             try {
-         /*       String cityText = city.getText().toString();
-                Document document = Jsoup.connect("https://yandex.ru/pogoda/search?request=" + cityText).get();
-                Element hlink= document.selectFirst("li[class=place-list__item]").selectFirst("a");
-                String link=hlink.attr("href");
-                document = Jsoup.connect("https://yandex.ru"+link).get();
 
-                Element currentTemp= document.selectFirst("div[class=temp fact__temp fact__temp_size_s]").selectFirst("span[class=temp__value temp__value_with-unit]");
-                Element situation = document.selectFirst("div[class=link__condition day-anchor i-bem]");
-                Element city = document.selectFirst("span[class=breadcrumbs__title]");
-                String wind = document.selectFirst("span[class=wind-speed]").text(); */
+                // API погоды только на сегодня
+                // Отсюда нужно брать координаты введённого города и его название
+                String href1 = "https://api.openweathermap.org/data/2.5/weather?q="+city.getText()+"&appid=a1f886dec466dde0dd09b3f75fa9455d&units=metric&lang=ru";
+                JSONObject Json=JsonReader.readJsonFromUrl(href1);
+                System.out.println(Json);
 
-                String href = "https://api.openweathermap.org/data/2.5/weather?q="+city.getText()+"&appid=a1f886dec466dde0dd09b3f75fa9455d&units=metric&lang=ru";
-                System.out.println(href);
-                JSONObject Json=JsonReader.readJsonFromUrl(href);
+                //Парсинг координат
+                double lat = Json.getJSONObject("coord").getDouble("lat");
+                double lon = Json.getJSONObject("coord").getDouble("lon");
+                String name = Json.getString("name") + Json.getJSONObject("sys").getString("country");
 
-                return Json.toString();
+                // Основной API с ситуацией и прогнозами
+                String href2 = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&exclude=minutely,alerts&appid=a1f886dec466dde0dd09b3f75fa9455d&lang=ru&units=metric";
+                JSONObject Json2 = JsonReader.readJsonFromUrl(href2);
+                System.out.println(Json2);
+
+                return Json2;
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -153,28 +147,24 @@ public class MainActivity extends AppCompatActivity{
 
         @SuppressLint("SetTextI18n")
         @Override
-        protected void onPostExecute(String weather) {
+        protected void onPostExecute(JSONObject weather) {
             super.onPostExecute(weather);
-            JSONObject jsonObject = null;
+
+            JSONObject jsonObject = weather;
             int currentTemp=0;
             int currentWet=0;
             int currentPreasure=0;
-            String name="";
             String sit = null;
 
             try {
-                 jsonObject = new JSONObject(weather);
-                 currentTemp= (int) jsonObject.getJSONObject("main").getDouble("temp");
-                 currentPreasure = (int) jsonObject.getJSONObject("main").getDouble("pressure");
-                 currentWet = (int) jsonObject.getJSONObject("main").getDouble("humidity");
-                 sit= jsonObject.getJSONArray("weather").getJSONObject(0).getString("description");
-                 name=jsonObject.getString("name");
-                 city.setText(name);
+                currentTemp= (int) jsonObject.getJSONObject("current").getDouble("temp");
+                currentPreasure = (int) jsonObject.getJSONObject("current").getDouble("pressure");
+                currentWet = (int) jsonObject.getJSONObject("current").getDouble("humidity");
+                sit= jsonObject.getJSONObject("current").getJSONArray("weather").getJSONObject(0).getString("description");
                 System.out.println(currentTemp);
             } catch (JSONException e) {
                 System.out.println("Ошибка парсинга");
             }
-
 
             switch (Objects.requireNonNull(sit)) {
                 case "ясно":
@@ -205,7 +195,8 @@ public class MainActivity extends AppCompatActivity{
 
           waiting.setText(String.valueOf(sit)+"\n"+String.valueOf(currentTemp)+"°С");
 
-            Toast.makeText(MainActivity.this, "Найденное место: " + name, Toast.LENGTH_LONG).show();
+            //Toast.makeText(MainActivity.this, "Найденное место: " + name, Toast.LENGTH_LONG).show();
+
 
         }
     }
