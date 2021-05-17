@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#333333"
+    android:background="@drawable/space"
     tools:context=".MainActivity">
 
     <ScrollView
@@ -14,15 +14,15 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#333333"
             tools:context=".MainActivity">
 
             <TextView
-                android:id="@+id/textView"
+                android:id="@+id/Meteogid"
                 android:layout_width="492dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
-                android:layout_marginTop="13dp"
+                android:layout_marginTop="12dp"
+                android:fontFamily="sans-serif-condensed"
                 android:text="Метеогид"
                 android:textAlignment="center"
                 android:textColor="#FFFFFF"
@@ -32,22 +32,24 @@
                 android:id="@+id/city"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/textView"
+                android:layout_below="@+id/Meteogid"
                 android:layout_alignParentStart="true"
                 android:layout_marginStart="19dp"
                 android:layout_marginTop="10dp"
                 android:backgroundTint="@color/white"
                 android:ems="10"
+                android:fontFamily="sans-serif-condensed"
                 android:hint="Введите город..."
                 android:inputType="textPersonName"
                 android:textColor="#FFFFFF"
-                android:textColorHint="@color/white" />
+                android:textColorHint="@color/white"
+                android:textSize="24sp" />
 
             <Button
                 android:id="@+id/btnSaveCity"
                 android:layout_width="wrap_content"
                 android:layout_height="38dp"
-                android:layout_below="@+id/textView"
+                android:layout_below="@+id/Meteogid"
                 android:layout_alignParentEnd="true"
                 android:layout_marginStart="80dp"
                 android:layout_marginTop="15dp"
@@ -102,8 +104,9 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/Waiting"
                 android:layout_marginStart="19dp"
+                android:layout_marginTop="22dp"
                 android:layout_marginEnd="19dp"
-                android:layout_marginTop="22dp">
+                app:cardCornerRadius="10dp">
 
                 <TextView
                     android:id="@+id/sit1"
@@ -112,7 +115,7 @@
                     android:layout_marginStart="5dp"
                     android:text="Завтра:"
                     android:textAlignment="viewStart"
-                    android:textSize="24sp" />
+                    android:textSize="20sp" />
 
                 <TextView
                     android:id="@+id/temp1"
@@ -122,7 +125,7 @@
                     android:layout_marginEnd="5dp"
                     android:text="Температура"
                     android:textAlignment="textEnd"
-                    android:textSize="24sp" />
+                    android:textSize="20sp" />
 
 
             </androidx.cardview.widget.CardView>
@@ -133,8 +136,9 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/TomBlock1"
                 android:layout_marginStart="19dp"
+                android:layout_marginTop="22dp"
                 android:layout_marginEnd="19dp"
-                android:layout_marginTop="22dp">
+                app:cardCornerRadius="10dp">
 
                 <TextView
                     android:id="@+id/temp2"
@@ -144,7 +148,7 @@
                     android:layout_marginEnd="5dp"
                     android:text="Температура"
                     android:textAlignment="textEnd"
-                    android:textSize="24sp" />
+                    android:textSize="20sp" />
 
                 <TextView
                     android:id="@+id/sit2"
@@ -153,7 +157,7 @@
                     android:layout_marginStart="5dp"
                     android:text="..."
                     android:textAlignment="viewStart"
-                    android:textSize="24sp" />
+                    android:textSize="20sp" />
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
@@ -162,8 +166,9 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/TomBlock2"
                 android:layout_marginStart="19dp"
+                android:layout_marginTop="22dp"
                 android:layout_marginEnd="19dp"
-                android:layout_marginTop="22dp">
+                app:cardCornerRadius="10dp">
 
                 <TextView
                     android:id="@+id/temp3"
@@ -173,7 +178,7 @@
                     android:layout_marginEnd="5dp"
                     android:text="Температура"
                     android:textAlignment="textEnd"
-                    android:textSize="24sp" />
+                    android:textSize="20sp" />
 
                 <TextView
                     android:id="@+id/sit3"
@@ -182,7 +187,7 @@
                     android:layout_marginStart="5dp"
                     android:text="..."
                     android:textAlignment="viewStart"
-                    android:textSize="24sp" />
+                    android:textSize="20sp" />
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
@@ -191,8 +196,9 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/TomBlock3"
                 android:layout_marginStart="19dp"
+                android:layout_marginTop="22dp"
                 android:layout_marginEnd="19dp"
-                android:layout_marginTop="22dp">
+                app:cardCornerRadius="10dp">
 
                 <TextView
                     android:id="@+id/temp4"
@@ -202,7 +208,7 @@
                     android:layout_marginEnd="5dp"
                     android:text="Температура"
                     android:textAlignment="textEnd"
-                    android:textSize="24sp" />
+                    android:textSize="20sp" />
 
                 <TextView
                     android:id="@+id/sit4"
@@ -211,7 +217,7 @@
                     android:layout_marginStart="5dp"
                     android:text="..."
                     android:textAlignment="viewStart"
-                    android:textSize="24sp" />
+                    android:textSize="20sp" />
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
@@ -220,8 +226,9 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/TomBlock4"
                 android:layout_marginStart="19dp"
+                android:layout_marginTop="22dp"
                 android:layout_marginEnd="19dp"
-                android:layout_marginTop="22dp">
+                app:cardCornerRadius="10dp">
 
                 <TextView
                     android:id="@+id/temp5"
@@ -231,7 +238,7 @@
                     android:layout_marginEnd="5dp"
                     android:text="Температура"
                     android:textAlignment="textEnd"
-                    android:textSize="24sp" />
+                    android:textSize="20sp" />
 
                 <TextView
                     android:id="@+id/sit5"
@@ -240,7 +247,7 @@
                     android:layout_marginStart="5dp"
                     android:text="..."
                     android:textAlignment="viewStart"
-                    android:textSize="24sp" />
+                    android:textSize="20sp" />
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
@@ -249,8 +256,9 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/TomBlock5"
                 android:layout_marginStart="19dp"
+                android:layout_marginTop="22dp"
                 android:layout_marginEnd="19dp"
-                android:layout_marginTop="22dp">
+                app:cardCornerRadius="10dp">
 
                 <TextView
                     android:id="@+id/temp6"
@@ -260,7 +268,7 @@
                     android:layout_marginEnd="5dp"
                     android:text="Температура"
                     android:textAlignment="textEnd"
-                    android:textSize="24sp" />
+                    android:textSize="20sp" />
 
                 <TextView
                     android:id="@+id/sit6"
@@ -269,15 +277,15 @@
                     android:layout_marginStart="5dp"
                     android:text="..."
                     android:textAlignment="viewStart"
-                    android:textSize="24sp" />
+                    android:textSize="20sp" />
             </androidx.cardview.widget.CardView>
 
             <TextView
                 android:id="@+id/textView2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
                 android:layout_below="@+id/TomBlock6"
+                android:layout_alignParentBottom="true"
                 android:layout_marginTop="22dp"
                 android:text="Официальный спонсор - vk.com/6anichan"
                 android:textAlignment="center" />

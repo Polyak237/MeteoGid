@@ -17,22 +17,29 @@ import android.widget.Toast;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.Objects;
 import java.util.TimeZone;
 
 public class MainActivity extends AppCompatActivity{
 
     ImageView pogoda;
-    TextView waiting, sit1, sit2, sit3, sit4, sit5, sit6, temp1, temp2, temp3, temp4, temp5, temp6;
+    TextView waiting,
+            sit1, sit2, sit3, sit4, sit5, sit6, temp1, temp2, temp3, temp4, temp5, temp6;
     EditText city;
     Button btnSaveCity, more;
     SharedPreferences sPref;
+    int currentTemp = 0,
+        currentWet = 0,
+        currentPressure = 0,
+        windSpeed = 0;
+    double UFind = 0;
+
+    String currentsit = null;
+    String name = "";
+    String H0x, H1x, H2x, H3x, H4x, H5x, H6x, H7x, H8x, H9x, H10x, H11x,
+            sitH0, sitH1, sitH2, sitH3, sitH4, sitH5, sitH6, sitH7, sitH8, sitH9, sitH10, sitH11;
 
     final String SavedCity = "Город был изменён";
 
@@ -85,6 +92,27 @@ public class MainActivity extends AppCompatActivity{
                     @Override
                     public void onClick(View v) {
                             Intent intent = new Intent(".Podrobno");
+                        //~~~~~~~~~~~~~~~~~~~~~~  Передача данных на другую страницу  ~~~~~~~~~~~~~~~~~~~~~~
+                        intent.putExtra("name", name);
+                        intent.putExtra("currentWet", currentWet);
+                        intent.putExtra("currentPressure", currentPressure);
+                        intent.putExtra("UFind", UFind);
+                        intent.putExtra("windSpeed", windSpeed);
+
+
+                        intent.putExtra("H0", H0x); intent.putExtra("sitH0", sitH0);
+                        intent.putExtra("H1", H1x); intent.putExtra("sitH1", sitH1);
+                        intent.putExtra("H2", H2x); intent.putExtra("sitH2", sitH2);
+                        intent.putExtra("H3", H3x); intent.putExtra("sitH3", sitH3);
+                        intent.putExtra("H4", H4x); intent.putExtra("sitH4", sitH4);
+                        intent.putExtra("H5", H5x); intent.putExtra("sitH5", sitH5);
+                        intent.putExtra("H6", H6x); intent.putExtra("sitH6", sitH6);
+                        intent.putExtra("H7", H7x); intent.putExtra("sitH7", sitH7);
+                        intent.putExtra("H8", H8x); intent.putExtra("sitH8", sitH8);
+                        intent.putExtra("H9", H9x); intent.putExtra("sitH9", sitH9);
+                        intent.putExtra("H10", H10x); intent.putExtra("sitH10", sitH10);
+                        intent.putExtra("H11", H11x); intent.putExtra("sitH11", sitH11);
+
                             startActivity(intent);
                     }
                 }
@@ -135,7 +163,7 @@ public class MainActivity extends AppCompatActivity{
                 //Парсинг координат
                 double lat = Json.getJSONObject("coord").getDouble("lat");
                 double lon = Json.getJSONObject("coord").getDouble("lon");
-                String name = Json.getString("name") + Json.getJSONObject("sys").getString("country");
+                name = Json.getString("name") + ", " + Json.getJSONObject("sys").getString("country");
 
                 // Основной API с ситуацией и прогнозами
                 String href2 = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&exclude=minutely,alerts&appid=a1f886dec466dde0dd09b3f75fa9455d&lang=ru&units=metric";
@@ -156,33 +184,30 @@ public class MainActivity extends AppCompatActivity{
             super.onPostExecute(weather);
 
             JSONObject jsonObject = weather;
-            int currentTemp=0;
-            int currentWet=0;
-            int currentPreasure=0;
-            String currentsit = null;
-
-
 
             try {
 
-                currentTemp = (int) jsonObject.getJSONObject("current").getDouble("temp");
-                currentPreasure = jsonObject.getJSONObject("current").getInt("pressure");
-                currentWet = jsonObject.getJSONObject("current").getInt("humidity");
-                currentsit= jsonObject.getJSONObject("current").getJSONArray("weather").getJSONObject(0).getString("description");
+                //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~           Получение current-данных            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+                currentTemp = (int) jsonObject.getJSONObject("current").getDouble("temp");
+                currentsit= jsonObject.getJSONObject("current").getJSONArray("weather").getJSONObject(0).getString("description");
+                currentPressure = jsonObject.getJSONObject("current").getInt("pressure");
+                currentWet = jsonObject.getJSONObject("current").getInt("humidity");
+                UFind = jsonObject.getJSONObject("current").getInt("uvi");
+                windSpeed = jsonObject.getJSONObject("current").getInt("wind_speed");
+
+                //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~      Получение Unix-даты и временной зоны     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
                 Long unix = jsonObject.getJSONObject("current").getLong("dt");
                 String zone = jsonObject.getString("timezone");
 
-                //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~          Корректировка даты            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~              Корректировка даты               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
                 Date date = new Date(unix*1000L);
                 SimpleDateFormat sdfcur = new SimpleDateFormat("dd MMM, HH:mm");
                 SimpleDateFormat sdfcal = new SimpleDateFormat("dd MMM, E");
                 sdfcur.setTimeZone(TimeZone.getTimeZone(zone));
-                String curdate = sdfcur.format(date);
-
-                //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~          Завтра            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~                   Завтра                      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
                 Long unix1 = jsonObject.getJSONArray("daily").getJSONObject(1).getLong("dt");
                 Date date1 = new Date(unix1*1000L);
@@ -192,7 +217,7 @@ public class MainActivity extends AppCompatActivity{
                 sit1.setText(date1X + " \n" + jsonObject.getJSONArray("daily").getJSONObject(1).getJSONArray("weather").getJSONObject(0).getString("description"));
                 temp1.setText(String.valueOf( (int) jsonObject.getJSONArray("daily").getJSONObject(1).getJSONObject("temp").getDouble("day")) + "°C");
 
-                //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~          Послезавтра           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~                 Послезавтра                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
                 Long unix2 = jsonObject.getJSONArray("daily").getJSONObject(2).getLong("dt");
                 Date date2 = new Date(unix2*1000L);
@@ -244,6 +269,110 @@ public class MainActivity extends AppCompatActivity{
                 temp6.setText(String.valueOf( (int) jsonObject.getJSONArray("daily").getJSONObject(6).getJSONObject("temp").getDouble("day")) + "°C");
 
 
+
+
+                //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  Блок для передачи переменных в "Подробно" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+                SimpleDateFormat sdfH = new SimpleDateFormat("HH:mm");
+                sdfH.setTimeZone((TimeZone.getTimeZone(zone)));
+
+                //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~                   Сейчас                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+                Long unixH0 = jsonObject.getJSONObject("current").getLong("dt");
+                Date H0 = new Date(unixH0*1000L);
+                H0x = sdfH.format(H0);
+                sitH0 = String.valueOf(jsonObject.getJSONArray("hourly").getJSONObject(0).getJSONArray("weather").getJSONObject(0).getString("description")) + ", " +
+                        String.valueOf( (int) jsonObject.getJSONArray("hourly").getJSONObject(0).getDouble("temp") + "°C");
+
+                //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~                Через час                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+                Long unixH1 = jsonObject.getJSONArray("hourly").getJSONObject(1).getLong("dt");
+                Date H1 = new Date(unixH1*1000L);
+                H1x = sdfH.format(H1);
+                sitH1 = String.valueOf(jsonObject.getJSONArray("hourly").getJSONObject(1).getJSONArray("weather").getJSONObject(0).getString("description")) + ", " +
+                        String.valueOf( (int) jsonObject.getJSONArray("hourly").getJSONObject(1).getDouble("temp") + "°C");
+
+                //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~                Через 2 часа                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+                Long unixH2 = jsonObject.getJSONArray("hourly").getJSONObject(2).getLong("dt");
+                Date H2 = new Date(unixH2*1000L);
+                H2x = sdfH.format(H2);
+                sitH2 = String.valueOf(jsonObject.getJSONArray("hourly").getJSONObject(2).getJSONArray("weather").getJSONObject(0).getString("description")) + ", " +
+                        String.valueOf( (int) jsonObject.getJSONArray("hourly").getJSONObject(2).getDouble("temp") + "°C");
+
+                //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~                Через 3 часа                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+                Long unixH3 = jsonObject.getJSONArray("hourly").getJSONObject(3).getLong("dt");
+                Date H3 = new Date(unixH3*1000L);
+                H3x = sdfH.format(H3);
+                sitH3 = String.valueOf(jsonObject.getJSONArray("hourly").getJSONObject(3).getJSONArray("weather").getJSONObject(0).getString("description")) + ", " +
+                        String.valueOf( (int) jsonObject.getJSONArray("hourly").getJSONObject(3).getDouble("temp") + "°C");
+
+                //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~                Через 4 часа                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+                Long unixH4 = jsonObject.getJSONArray("hourly").getJSONObject(4).getLong("dt");
+                Date H4 = new Date(unixH4*1000L);
+                H4x = sdfH.format(H4);
+                sitH4 = String.valueOf(jsonObject.getJSONArray("hourly").getJSONObject(4).getJSONArray("weather").getJSONObject(0).getString("description")) + ", " +
+                        String.valueOf( (int) jsonObject.getJSONArray("hourly").getJSONObject(4).getDouble("temp") + "°C");
+
+                //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~                Через 5 часов                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+                Long unixH5 = jsonObject.getJSONArray("hourly").getJSONObject(5).getLong("dt");
+                Date H5 = new Date(unixH5*1000L);
+                H5x = sdfH.format(H5);
+                sitH5 = String.valueOf(jsonObject.getJSONArray("hourly").getJSONObject(5).getJSONArray("weather").getJSONObject(0).getString("description")) + ", " +
+                        String.valueOf( (int) jsonObject.getJSONArray("hourly").getJSONObject(5).getDouble("temp") + "°C");
+
+                //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~                Через 6 часов                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+                Long unixH6 = jsonObject.getJSONArray("hourly").getJSONObject(6).getLong("dt");
+                Date H6 = new Date(unixH6*1000L);
+                H6x = sdfH.format(H6);
+                sitH6 = String.valueOf(jsonObject.getJSONArray("hourly").getJSONObject(6).getJSONArray("weather").getJSONObject(0).getString("description")) + ", " +
+                        String.valueOf( (int) jsonObject.getJSONArray("hourly").getJSONObject(6).getDouble("temp") + "°C");
+
+                //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~                Через 7 часов                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+                Long unixH7 = jsonObject.getJSONArray("hourly").getJSONObject(7).getLong("dt");
+                Date H7 = new Date(unixH7*1000L);
+                H7x = sdfH.format(H7);
+                sitH7 = String.valueOf(jsonObject.getJSONArray("hourly").getJSONObject(7).getJSONArray("weather").getJSONObject(0).getString("description")) + ", " +
+                        String.valueOf( (int) jsonObject.getJSONArray("hourly").getJSONObject(7).getDouble("temp") + "°C");
+
+                //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~                Через 8 часов                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+                Long unixH8 = jsonObject.getJSONArray("hourly").getJSONObject(8).getLong("dt");
+                Date H8 = new Date(unixH8*1000L);
+                H8x = sdfH.format(H8);
+                sitH8 = String.valueOf(jsonObject.getJSONArray("hourly").getJSONObject(8).getJSONArray("weather").getJSONObject(0).getString("description")) + ", " +
+                        String.valueOf( (int) jsonObject.getJSONArray("hourly").getJSONObject(8).getDouble("temp") + "°C");
+
+                //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~                Через 9 часов                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+                Long unixH9 = jsonObject.getJSONArray("hourly").getJSONObject(9).getLong("dt");
+                Date H9 = new Date(unixH9*1000L);
+                H9x = sdfH.format(H9);
+                sitH9 = String.valueOf(jsonObject.getJSONArray("hourly").getJSONObject(9).getJSONArray("weather").getJSONObject(0).getString("description")) + ", " +
+                        String.valueOf( (int) jsonObject.getJSONArray("hourly").getJSONObject(9).getDouble("temp") + "°C");
+
+                //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~                Через 10 часов                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+                Long unixH10 = jsonObject.getJSONArray("hourly").getJSONObject(10).getLong("dt");
+                Date H10 = new Date(unixH10*1000L);
+                H10x = sdfH.format(H10);
+                sitH10 = String.valueOf(jsonObject.getJSONArray("hourly").getJSONObject(10).getJSONArray("weather").getJSONObject(0).getString("description")) + ", " +
+                        String.valueOf( (int) jsonObject.getJSONArray("hourly").getJSONObject(10).getDouble("temp") + "°C");
+
+                //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~                Через 11 часов                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+                Long unixH11 = jsonObject.getJSONArray("hourly").getJSONObject(11).getLong("dt");
+                Date H11 = new Date(unixH11*1000L);
+                H11x = sdfH.format(H11);
+                sitH11 = String.valueOf(jsonObject.getJSONArray("hourly").getJSONObject(11).getJSONArray("weather").getJSONObject(0).getString("description")) + ", " +
+                        String.valueOf( (int) jsonObject.getJSONArray("hourly").getJSONObject(11).getDouble("temp") + "°C");
+
+
             } catch (JSONException e) {
                 System.out.println("Ошибка парсинга");
             }
@@ -279,8 +408,7 @@ public class MainActivity extends AppCompatActivity{
 
           waiting.setText("Сегодня: \n" + String.valueOf(currentsit)+",\n"+String.valueOf(currentTemp)+"°С");
 
-            //Toast.makeText(MainActivity.this, "Найденное место: " + name, Toast.LENGTH_LONG).show();
-
+            Toast.makeText(MainActivity.this, "Найденное место: " + name, Toast.LENGTH_LONG).show();
 
         }
     }
