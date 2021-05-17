@@ -60,14 +60,14 @@
                 android:textStyle="bold" />
 
             <androidx.cardview.widget.CardView
-                app:cardCornerRadius="10dp"
+                app:cardCornerRadius="7dp"
                 android:id="@+id/TomBlock0"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/text"
                 android:layout_marginStart="19dp"
                 app:cardBackgroundColor="@color/halfblack"
-                android:layout_marginTop="22dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginEnd="19dp">
 
                 <TextView
@@ -93,14 +93,14 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
-                app:cardCornerRadius="10dp"
+                app:cardCornerRadius="7dp"
                 app:cardBackgroundColor="@color/halfblack"
                 android:id="@+id/TomBlock1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/TomBlock0"
                 android:layout_marginStart="19dp"
-                android:layout_marginTop="22dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginEnd="19dp">
 
                 <TextView
@@ -126,14 +126,14 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
-                app:cardCornerRadius="10dp"
+                app:cardCornerRadius="7dp"
                 app:cardBackgroundColor="@color/halfblack"
                 android:id="@+id/TomBlock2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/TomBlock1"
                 android:layout_marginStart="19dp"
-                android:layout_marginTop="22dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginEnd="19dp">
 
                 <TextView
@@ -157,14 +157,14 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
-                app:cardCornerRadius="10dp"
+                app:cardCornerRadius="7dp"
                 app:cardBackgroundColor="@color/halfblack"
                 android:id="@+id/TomBlock3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/TomBlock2"
                 android:layout_marginStart="19dp"
-                android:layout_marginTop="22dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginEnd="19dp">
 
                 <TextView
@@ -188,14 +188,14 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
-                app:cardCornerRadius="10dp"
+                app:cardCornerRadius="7dp"
                 app:cardBackgroundColor="@color/halfblack"
                 android:id="@+id/TomBlock4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/TomBlock3"
                 android:layout_marginStart="19dp"
-                android:layout_marginTop="22dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginEnd="19dp">
 
                 <TextView
@@ -219,14 +219,14 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
-                app:cardCornerRadius="10dp"
+                app:cardCornerRadius="7dp"
                 app:cardBackgroundColor="@color/halfblack"
                 android:id="@+id/TomBlock5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/TomBlock4"
                 android:layout_marginStart="19dp"
-                android:layout_marginTop="22dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginEnd="19dp">
 
                 <TextView
@@ -250,14 +250,14 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
-                app:cardCornerRadius="10dp"
+                app:cardCornerRadius="7dp"
                 app:cardBackgroundColor="@color/halfblack"
                 android:id="@+id/TomBlock6"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/TomBlock5"
                 android:layout_marginStart="19dp"
-                android:layout_marginTop="22dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginEnd="19dp">
 
                 <TextView
@@ -281,14 +281,14 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
-                app:cardCornerRadius="10dp"
+                app:cardCornerRadius="7dp"
                 app:cardBackgroundColor="@color/halfblack"
                 android:id="@+id/TomBlock7"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/TomBlock6"
                 android:layout_marginStart="19dp"
-                android:layout_marginTop="22dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginEnd="19dp">
 
                 <TextView
@@ -312,14 +312,14 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
-                app:cardCornerRadius="10dp"
+                app:cardCornerRadius="7dp"
                 app:cardBackgroundColor="@color/halfblack"
                 android:id="@+id/TomBlock8"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/TomBlock7"
                 android:layout_marginStart="19dp"
-                android:layout_marginTop="22dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginEnd="19dp">
 
                 <TextView
@@ -343,14 +343,14 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
-                app:cardCornerRadius="10dp"
+                app:cardCornerRadius="7dp"
                 app:cardBackgroundColor="@color/halfblack"
                 android:id="@+id/TomBlock9"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/TomBlock8"
                 android:layout_marginStart="19dp"
-                android:layout_marginTop="22dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginEnd="19dp">
 
                 <TextView
@@ -374,14 +374,14 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
-                app:cardCornerRadius="10dp"
+                app:cardCornerRadius="7dp"
                 app:cardBackgroundColor="@color/halfblack"
                 android:id="@+id/TomBlock10"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/TomBlock9"
                 android:layout_marginStart="19dp"
-                android:layout_marginTop="22dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginEnd="19dp">
 
                 <TextView
@@ -405,14 +405,14 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
-                app:cardCornerRadius="10dp"
+                app:cardCornerRadius="7dp"
                 app:cardBackgroundColor="@color/halfblack"
                 android:id="@+id/TomBlock11"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/TomBlock10"
                 android:layout_marginStart="19dp"
-                android:layout_marginTop="22dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginEnd="19dp">
 
                 <TextView

@@ -54,7 +54,7 @@
                 android:layout_marginStart="80dp"
                 android:layout_marginTop="15dp"
                 android:layout_marginEnd="28dp"
-                android:backgroundTint="#3E3E3E"
+                android:backgroundTint="#513E3E3E"
                 android:fontFamily="sans-serif-light"
                 android:text="Сменить..."
                 android:textColor="#FFFFFF"
@@ -78,6 +78,7 @@
                 android:layout_alignStart="@+id/Pogoda"
                 android:layout_marginStart="19dp"
                 android:layout_marginTop="7dp"
+                android:fontFamily="sans-serif-condensed"
                 android:gravity="center"
                 android:textAlignment="textStart"
                 android:textColor="#FFFFFF"
@@ -92,21 +93,22 @@
                 android:layout_alignEnd="@+id/Pogoda"
                 android:layout_marginTop="35dp"
                 android:layout_marginEnd="19dp"
-                android:backgroundTint="#3E3E3E"
+                android:backgroundTint="#8B007AFF"
                 android:fontFamily="sans-serif-light"
                 android:text="Подробнее..."
                 android:textColor="#FFFFFF"
                 android:textSize="12sp" />
 
             <androidx.cardview.widget.CardView
+                app:cardBackgroundColor="#AE002D5E"
                 android:id="@+id/TomBlock1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/Waiting"
                 android:layout_marginStart="19dp"
-                android:layout_marginTop="22dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginEnd="19dp"
-                app:cardCornerRadius="10dp">
+                app:cardCornerRadius="7dp">
 
                 <TextView
                     android:id="@+id/sit1"
@@ -131,14 +133,15 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
+                app:cardBackgroundColor="#AE002D5E"
                 android:id="@+id/TomBlock2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/TomBlock1"
                 android:layout_marginStart="19dp"
-                android:layout_marginTop="22dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginEnd="19dp"
-                app:cardCornerRadius="10dp">
+                app:cardCornerRadius="7dp">
 
                 <TextView
                     android:id="@+id/temp2"
@@ -161,14 +164,15 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
+                app:cardBackgroundColor="#AE002D5E"
                 android:id="@+id/TomBlock3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/TomBlock2"
                 android:layout_marginStart="19dp"
-                android:layout_marginTop="22dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginEnd="19dp"
-                app:cardCornerRadius="10dp">
+                app:cardCornerRadius="7dp">
 
                 <TextView
                     android:id="@+id/temp3"
@@ -191,14 +195,15 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
+                app:cardBackgroundColor="#AE002D5E"
                 android:id="@+id/TomBlock4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/TomBlock3"
                 android:layout_marginStart="19dp"
-                android:layout_marginTop="22dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginEnd="19dp"
-                app:cardCornerRadius="10dp">
+                app:cardCornerRadius="7dp">
 
                 <TextView
                     android:id="@+id/temp4"
@@ -221,14 +226,15 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
+                app:cardBackgroundColor="#AE002D5E"
                 android:id="@+id/TomBlock5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/TomBlock4"
                 android:layout_marginStart="19dp"
-                android:layout_marginTop="22dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginEnd="19dp"
-                app:cardCornerRadius="10dp">
+                app:cardCornerRadius="7dp">
 
                 <TextView
                     android:id="@+id/temp5"
@@ -251,14 +257,15 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
+                app:cardBackgroundColor="#AE002D5E"
                 android:id="@+id/TomBlock6"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/TomBlock5"
                 android:layout_marginStart="19dp"
-                android:layout_marginTop="22dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginEnd="19dp"
-                app:cardCornerRadius="10dp">
+                app:cardCornerRadius="7dp">
 
                 <TextView
                     android:id="@+id/temp6"
@@ -286,7 +293,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/TomBlock6"
                 android:layout_alignParentBottom="true"
-                android:layout_marginTop="22dp"
+                android:layout_marginTop="10dp"
                 android:text="Официальный спонсор - vk.com/6anichan"
                 android:textAlignment="center" />
 
