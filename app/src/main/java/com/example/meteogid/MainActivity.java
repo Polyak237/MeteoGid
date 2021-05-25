@@ -14,6 +14,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.JsonObject;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -34,7 +36,7 @@ public class MainActivity extends AppCompatActivity{
         currentWet = 0,
         currentPressure = 0,
         windSpeed = 0;
-    double UFind = 0;
+    double UFind;
 
     String currentsit = null;
     String name = "";
@@ -98,7 +100,6 @@ public class MainActivity extends AppCompatActivity{
                         intent.putExtra("currentPressure", currentPressure);
                         intent.putExtra("UFind", UFind);
                         intent.putExtra("windSpeed", windSpeed);
-
 
                         intent.putExtra("H0", H0x); intent.putExtra("sitH0", sitH0);
                         intent.putExtra("H1", H1x); intent.putExtra("sitH1", sitH1);
@@ -185,6 +186,7 @@ public class MainActivity extends AppCompatActivity{
 
             JSONObject jsonObject = weather;
 
+
             try {
 
                 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~           Получение current-данных            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -193,7 +195,7 @@ public class MainActivity extends AppCompatActivity{
                 currentsit= jsonObject.getJSONObject("current").getJSONArray("weather").getJSONObject(0).getString("description");
                 currentPressure = jsonObject.getJSONObject("current").getInt("pressure");
                 currentWet = jsonObject.getJSONObject("current").getInt("humidity");
-                UFind = jsonObject.getJSONObject("current").getInt("uvi");
+                UFind = jsonObject.getJSONObject("current").getDouble("uvi");
                 windSpeed = jsonObject.getJSONObject("current").getInt("wind_speed");
 
                 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~      Получение Unix-даты и временной зоны     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

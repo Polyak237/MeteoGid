@@ -42,7 +42,7 @@ public class Podrobno extends AppCompatActivity {
         String pressure = "Давление: " + String.valueOf(Math.round(arguments.getInt("currentPressure")*0.7500637554)) + " мм рт.ст.";
         String wet = "Влажность: " + String.valueOf(arguments.getInt("currentWet")) + "%";
         String windSpeed = "Скорость ветра: " + String.valueOf(arguments.getInt("windSpeed")) + " м/c";
-        String UFind = "УФ-индекс: " + String.valueOf(arguments.getInt("UFind"));
+        String UFind = "УФ-индекс: " + String.valueOf(arguments.getDouble("UFind"));
 
 
         name.setText(arguments.getString("name") + "\n" + arguments.getString("H0"));
