@@ -7,18 +7,20 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.gson.JsonObject;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Objects;
@@ -33,10 +35,10 @@ public class MainActivity extends AppCompatActivity{
     Button btnSaveCity, more;
     SharedPreferences sPref;
     int currentTemp = 0,
-        currentWet = 0,
-        currentPressure = 0,
-        windSpeed = 0;
-    double UFind;
+            currentWet = 0,
+            currentPressure = 0,
+            windSpeed = 0;
+    double UFind = 0;
 
     String currentsit = null;
     String name = "";
@@ -70,20 +72,43 @@ public class MainActivity extends AppCompatActivity{
 
 
     public void addListenerOnSave () { // Действия при нажатии на кнопку смены города
-        btnSaveCity = (Button)findViewById(R.id.btnSaveCity);
-        btnSaveCity.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
+        EditText editText = (EditText)findViewById(R.id.city);
+//        btnSaveCity.setOnClickListener(
+//                new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        if (city.getText().toString().equals("")) {
+//                            Toast.makeText(MainActivity.this, "Введите название города", Toast.LENGTH_LONG).show();
+//                        } else {
+//                            savetext();
+//                            showdata();
+//                        }
+//                    }
+//                }
+//        );
+        TextView.OnEditorActionListener listener = new EditText.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_SEARCH ||
+                        actionId == EditorInfo.IME_ACTION_DONE ||
+                        event != null &&
+                                event.getAction() == KeyEvent.ACTION_DOWN &&
+                                event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
+                    if (event == null || !event.isShiftPressed()) {
+                        // the user is done typing.
                         if (city.getText().toString().equals("")) {
                             Toast.makeText(MainActivity.this, "Введите название города", Toast.LENGTH_LONG).show();
                         } else {
                             savetext();
                             showdata();
+                            return false;
                         }
                     }
                 }
-        );
+                return false; // pass on to other listeners.
+            }
+        };
+        editText.setOnEditorActionListener(listener);
     }
 
 
@@ -93,13 +118,14 @@ public class MainActivity extends AppCompatActivity{
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                            Intent intent = new Intent(".Podrobno");
+                        Intent intent = new Intent(".Podrobno");
                         //~~~~~~~~~~~~~~~~~~~~~~  Передача данных на другую страницу  ~~~~~~~~~~~~~~~~~~~~~~
                         intent.putExtra("name", name);
                         intent.putExtra("currentWet", currentWet);
                         intent.putExtra("currentPressure", currentPressure);
                         intent.putExtra("UFind", UFind);
                         intent.putExtra("windSpeed", windSpeed);
+
 
                         intent.putExtra("H0", H0x); intent.putExtra("sitH0", sitH0);
                         intent.putExtra("H1", H1x); intent.putExtra("sitH1", sitH1);
@@ -114,7 +140,7 @@ public class MainActivity extends AppCompatActivity{
                         intent.putExtra("H10", H10x); intent.putExtra("sitH10", sitH10);
                         intent.putExtra("H11", H11x); intent.putExtra("sitH11", sitH11);
 
-                            startActivity(intent);
+                        startActivity(intent);
                     }
                 }
         );
@@ -170,20 +196,25 @@ public class MainActivity extends AppCompatActivity{
                 String href2 = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&exclude=minutely,alerts&appid=a1f886dec466dde0dd09b3f75fa9455d&lang=ru&units=metric";
                 JSONObject Json2 = JsonReader.readJsonFromUrl(href2);
 
+
                 return Json2;
 
-            } catch (Exception e) {
+            }
+            catch (JSONException | IOException e) {
                 e.printStackTrace();
             }
 
-            return null;
+            return null;//В случае исключения
         }
 
         @SuppressLint("SetTextI18n")
         @Override
         protected void onPostExecute(JSONObject weather) {
             super.onPostExecute(weather);
-
+            if (weather == null) {
+                Toast.makeText(MainActivity.this, "Нет такого города", Toast.LENGTH_LONG).show();
+                return;
+            }
             JSONObject jsonObject = weather;
 
 
@@ -195,7 +226,7 @@ public class MainActivity extends AppCompatActivity{
                 currentsit= jsonObject.getJSONObject("current").getJSONArray("weather").getJSONObject(0).getString("description");
                 currentPressure = jsonObject.getJSONObject("current").getInt("pressure");
                 currentWet = jsonObject.getJSONObject("current").getInt("humidity");
-                UFind = jsonObject.getJSONObject("current").getDouble("uvi");
+                UFind = jsonObject.getJSONObject("current").getInt("uvi");
                 windSpeed = jsonObject.getJSONObject("current").getInt("wind_speed");
 
                 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~      Получение Unix-даты и временной зоны     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -408,7 +439,7 @@ public class MainActivity extends AppCompatActivity{
                 break;
             }
 
-          waiting.setText("Сегодня: \n" + String.valueOf(currentsit)+",\n"+String.valueOf(currentTemp)+"°С");
+            waiting.setText("Сегодня: \n" + String.valueOf(currentsit)+",\n"+String.valueOf(currentTemp)+"°С");
 
             Toast.makeText(MainActivity.this, "Найденное место: " + name, Toast.LENGTH_LONG).show();
 
