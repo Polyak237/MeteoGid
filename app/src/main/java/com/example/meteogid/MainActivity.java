@@ -1,5 +1,4 @@
 package com.example.meteogid;
-//123
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
