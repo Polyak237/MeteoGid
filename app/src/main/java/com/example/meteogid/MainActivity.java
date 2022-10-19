@@ -1,6 +1,5 @@
 package com.example.meteogid;
-
-import androidx.appcompat.app.AppCompatActivity;
+//123
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -16,10 +15,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
