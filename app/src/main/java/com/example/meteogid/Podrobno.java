@@ -19,8 +19,8 @@ public class Podrobno extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_podrobno);
 
-        waiting = (TextView)findViewById(R.id.Waiting1);
-        name = (TextView)findViewById(R.id.CityName);
+        waiting = (TextView)findViewById(R.id.tttt);
+        name = (TextView)findViewById(R.id.Histor);
 
         H0 = (TextView)findViewById(R.id.H0); H1 = (TextView)findViewById(R.id.H1);
         H2 = (TextView)findViewById(R.id.H2); H3 = (TextView)findViewById(R.id.H3);
@@ -29,10 +29,10 @@ public class Podrobno extends AppCompatActivity {
         H8 = (TextView)findViewById(R.id.H8); H9 = (TextView)findViewById(R.id.H9);
         H10 = (TextView)findViewById(R.id.H10); H11 = (TextView)findViewById(R.id.H11);
 
-        sit0 = (TextView)findViewById(R.id.temp0); sit1 = (TextView)findViewById(R.id.temp1);
-        sit2 = (TextView)findViewById(R.id.temp2); sit3 = (TextView)findViewById(R.id.temp3);
-        sit4 = (TextView)findViewById(R.id.temp4); sit5 = (TextView)findViewById(R.id.temp5);
-        sit6 = (TextView)findViewById(R.id.temp6); sit7 = (TextView)findViewById(R.id.temp7);
+        sit0 = (TextView)findViewById(R.id.hist0); sit1 = (TextView)findViewById(R.id.hist1);
+        sit2 = (TextView)findViewById(R.id.hist2); sit3 = (TextView)findViewById(R.id.hist3);
+        sit4 = (TextView)findViewById(R.id.hist4); sit5 = (TextView)findViewById(R.id.hist5);
+        sit6 = (TextView)findViewById(R.id.hist6); sit7 = (TextView)findViewById(R.id.temp7);
         sit8 = (TextView)findViewById(R.id.temp8); sit9 = (TextView)findViewById(R.id.temp9);
         sit10 = (TextView)findViewById(R.id.temp10); sit11 = (TextView)findViewById(R.id.temp11);
 
@@ -48,24 +48,18 @@ public class Podrobno extends AppCompatActivity {
         name.setText(arguments.getString("name") + "\n" + arguments.getString("H0"));
         waiting.setText(pressure + "\n" + wet + "\n" + windSpeed + "\n" + UFind);
 
-        H0.setText(arguments.getString("H0")); sit0.setText("\n" + arguments.getString("sitH0"));
-        H1.setText(arguments.getString("H1")); sit1.setText("\n" + arguments.getString("sitH1"));
-        H2.setText(arguments.getString("H2")); sit2.setText("\n" + arguments.getString("sitH2"));
-        H3.setText(arguments.getString("H3")); sit3.setText("\n" + arguments.getString("sitH3"));
-        H4.setText(arguments.getString("H4")); sit4.setText("\n" + arguments.getString("sitH4"));
-        H5.setText(arguments.getString("H5")); sit5.setText("\n" + arguments.getString("sitH5"));
-        H6.setText(arguments.getString("H6")); sit6.setText("\n" + arguments.getString("sitH6"));
-        H7.setText(arguments.getString("H7")); sit7.setText("\n" + arguments.getString("sitH7"));
-        H8.setText(arguments.getString("H8")); sit8.setText("\n" + arguments.getString("sitH8"));
-        H9.setText(arguments.getString("H9")); sit9.setText("\n" + arguments.getString("sitH9"));
-        H10.setText(arguments.getString("H10")); sit10.setText("\n" + arguments.getString("sitH10"));
-        H11.setText(arguments.getString("H11")); sit11.setText("\n" + arguments.getString("sitH11"));
-
+        H0.setText(arguments.getString("H0")); sit0.setText(arguments.getString("sitH0"));
+        H1.setText(arguments.getString("H1")); sit1.setText(arguments.getString("sitH1"));
+        H2.setText(arguments.getString("H2")); sit2.setText(arguments.getString("sitH2"));
+        H3.setText(arguments.getString("H3")); sit3.setText(arguments.getString("sitH3"));
+        H4.setText(arguments.getString("H4")); sit4.setText(arguments.getString("sitH4"));
+        H5.setText(arguments.getString("H5")); sit5.setText(arguments.getString("sitH5"));
+        H6.setText(arguments.getString("H6")); sit6.setText( arguments.getString("sitH6"));
+        H7.setText(arguments.getString("H7")); sit7.setText(arguments.getString("sitH7"));
+        H8.setText(arguments.getString("H8")); sit8.setText(arguments.getString("sitH8"));
+        H9.setText(arguments.getString("H9")); sit9.setText(arguments.getString("sitH9"));
+        H10.setText(arguments.getString("H10")); sit10.setText(arguments.getString("sitH10"));
+        H11.setText(arguments.getString("H11")); sit11.setText(arguments.getString("sitH11"));
 
     }
-
-
-
-
-
 }

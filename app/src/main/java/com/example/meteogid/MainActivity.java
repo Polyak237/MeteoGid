@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import org.json.JSONException;
@@ -31,7 +32,7 @@ public class MainActivity extends AppCompatActivity{
     TextView waiting,
             sit1, sit2, sit3, sit4, sit5, sit6, temp1, temp2, temp3, temp4, temp5, temp6;
     EditText city;
-    Button btnSaveCity, more;
+    Button btnSaveCity, more, hist;
     SharedPreferences sPref;
     int currentTemp = 0,
             currentWet = 0,
@@ -112,6 +113,7 @@ public class MainActivity extends AppCompatActivity{
 
 
     public void addListenerOnButtonMore () {  // Действия при нажатии на кнопку с подробностями
+        hist = (Button)findViewById(R.id.History);
         more = (Button)findViewById(R.id.More);
         more.setOnClickListener(
                 new View.OnClickListener() {
@@ -143,16 +145,37 @@ public class MainActivity extends AppCompatActivity{
                     }
                 }
         );
+        hist.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                        Intent intent = new Intent(".History");
+                        startActivity(intent);
+
+                        SharedPreferences preferences = getSharedPreferences("PREFS",0);
+                        SharedPreferences.Editor editor= preferences.edit();
+                        editor.putString("city",name);
+                        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+                        String currentDateAndTime = sdf.format(new Date());
+                        editor.putString("hour", currentDateAndTime);
+                        //editor.putBoolean("key",true);
+                        editor.apply();
+                    }
+                }
+        );
     }
 
 
 
     private void savetext() { // Функция сохранения введённого города
+
         sPref = getPreferences(MODE_PRIVATE);
         SharedPreferences.Editor ed = sPref.edit();
         ed.putString(SavedCity, city.getText().toString());
         ed.apply();
         Toast.makeText(MainActivity.this, "Город сохранён", Toast.LENGTH_SHORT).show();
+
     }
 
     public void loadtext() { // Функция загрузки введённого города
@@ -183,7 +206,7 @@ public class MainActivity extends AppCompatActivity{
 
                 // API погоды только на сегодня
                 // Отсюда нужно брать координаты введённого города и его название
-                String href1 = "https://api.openweathermap.org/data/2.5/weather?q="+city.getText()+"&appid=a1f886dec466dde0dd09b3f75fa9455d&units=metric&lang=ru";
+                String href1 = "https://api.openweathermap.org/data/2.5/weather?q="+city.getText().toString().trim()+"&appid=a1f886dec466dde0dd09b3f75fa9455d&units=metric&lang=ru";
                 JSONObject Json=JsonReader.readJsonFromUrl(href1);
 
                 //Парсинг координат
@@ -210,7 +233,56 @@ public class MainActivity extends AppCompatActivity{
         @Override
         protected void onPostExecute(JSONObject weather) {
             super.onPostExecute(weather);
+            sPref = getPreferences(MODE_PRIVATE);
             if (weather == null) {
+                SharedPreferences.Editor ed = sPref.edit();
+                ed.putString(SavedCity, "");
+                ed.apply();
+                city.setText("");
+                sit1.setText("Завтра:");
+                sit2.setText("...");
+                sit3.setText("...");
+                sit4.setText("...");
+                sit5.setText("...");
+                sit6.setText("...");
+                temp1.setText("Температура");
+                temp2.setText("Температура");
+                temp3.setText("Температура");
+                temp4.setText("Температура");
+                temp5.setText("Температура");
+                temp6.setText("Температура");
+                currentTemp = 0;
+                currentWet = 0;
+                currentPressure = 0;
+                windSpeed = 0;
+                UFind = 0;
+                H0x=null;
+                H1x=null;
+                H2x=null;
+                H3x=null;
+                H4x=null;
+                H5x=null;
+                H6x=null;
+                H7x=null;
+                H8x=null;
+                H9x=null;
+                H10x=null;
+                H11x=null;
+                sitH0=null;
+                sitH1=null;
+                sitH2=null;
+                sitH3=null;
+                sitH4=null;
+                sitH5=null;
+                sitH6=null;
+                sitH7=null;
+                sitH8=null;
+                sitH9=null;
+                sitH10=null;
+                sitH11=null;
+                name="";
+                waiting.setText("");
+                pogoda.setImageResource(R.drawable.main);
                 Toast.makeText(MainActivity.this, "Нет такого города", Toast.LENGTH_LONG).show();
                 return;
             }
@@ -245,7 +317,7 @@ public class MainActivity extends AppCompatActivity{
                 Date date1 = new Date(unix1*1000L);
                 String date1X = sdfcal.format(date1);
                 sit1 = (TextView) findViewById(R.id.sit1);
-                temp1 = (TextView) findViewById(R.id.temp1);
+                temp1 = (TextView) findViewById(R.id.hist1);
                 sit1.setText(date1X + " \n" + jsonObject.getJSONArray("daily").getJSONObject(1).getJSONArray("weather").getJSONObject(0).getString("description"));
                 temp1.setText(String.valueOf( (int) jsonObject.getJSONArray("daily").getJSONObject(1).getJSONObject("temp").getDouble("day")) + "°C");
 
@@ -256,7 +328,7 @@ public class MainActivity extends AppCompatActivity{
                 sdfcal.setTimeZone(TimeZone.getTimeZone(zone));
                 String date2X = sdfcal.format(date2);
                 sit2 = (TextView) findViewById(R.id.sit2);
-                temp2 = (TextView) findViewById(R.id.temp2);
+                temp2 = (TextView) findViewById(R.id.hist2);
                 sit2.setText(date2X + " \n"+ jsonObject.getJSONArray("daily").getJSONObject(2).getJSONArray("weather").getJSONObject(0).getString("description"));
                 temp2.setText(String.valueOf( (int) jsonObject.getJSONArray("daily").getJSONObject(2).getJSONObject("temp").getDouble("day")) + "°C");
 
@@ -266,7 +338,7 @@ public class MainActivity extends AppCompatActivity{
                 Date date3 = new Date(unix3*1000L);
                 String date3X = sdfcal.format(date3);
                 sit3 = (TextView) findViewById(R.id.sit3);
-                temp3 = (TextView) findViewById(R.id.temp3);
+                temp3 = (TextView) findViewById(R.id.hist3);
                 sit3.setText(date3X + " \n"+ jsonObject.getJSONArray("daily").getJSONObject(3).getJSONArray("weather").getJSONObject(0).getString("description"));
                 temp3.setText(String.valueOf( (int) jsonObject.getJSONArray("daily").getJSONObject(3).getJSONObject("temp").getDouble("day")) + "°C");
 
@@ -276,7 +348,7 @@ public class MainActivity extends AppCompatActivity{
                 Date date4 = new Date(unix4*1000L);
                 String date4X = sdfcal.format(date4);
                 sit4 = (TextView) findViewById(R.id.sit4);
-                temp4 = (TextView) findViewById(R.id.temp4);
+                temp4 = (TextView) findViewById(R.id.hist4);
                 sit4.setText(date4X + " \n"+ jsonObject.getJSONArray("daily").getJSONObject(4).getJSONArray("weather").getJSONObject(0).getString("description"));
                 temp4.setText(String.valueOf( (int) jsonObject.getJSONArray("daily").getJSONObject(4).getJSONObject("temp").getDouble("day")) + "°C");
 
@@ -286,7 +358,7 @@ public class MainActivity extends AppCompatActivity{
                 Date date5 = new Date(unix5*1000L);
                 String date5X = sdfcal.format(date5);
                 sit5 = (TextView) findViewById(R.id.sit5);
-                temp5 = (TextView) findViewById(R.id.temp5);
+                temp5 = (TextView) findViewById(R.id.hist5);
                 sit5.setText(date5X + " \n"+ jsonObject.getJSONArray("daily").getJSONObject(5).getJSONArray("weather").getJSONObject(0).getString("description"));
                 temp5.setText(String.valueOf( (int) jsonObject.getJSONArray("daily").getJSONObject(5).getJSONObject("temp").getDouble("day")) + "°C");
 
@@ -296,7 +368,7 @@ public class MainActivity extends AppCompatActivity{
                 Date date6 = new Date(unix6*1000L);
                 String date6X = sdfcal.format(date6);
                 sit6 = (TextView) findViewById(R.id.sit6);
-                temp6 = (TextView) findViewById(R.id.temp6);
+                temp6 = (TextView) findViewById(R.id.hist6);
                 sit6.setText(date6X + " \n"+ jsonObject.getJSONArray("daily").getJSONObject(6).getJSONArray("weather").getJSONObject(0).getString("description"));
                 temp6.setText(String.valueOf( (int) jsonObject.getJSONArray("daily").getJSONObject(6).getJSONObject("temp").getDouble("day")) + "°C");
 
@@ -414,11 +486,13 @@ public class MainActivity extends AppCompatActivity{
                     pogoda.setImageResource(R.drawable.sun);
                     break;
                 case "пасмурно":
+                case ("небольшая облачность"):
                     pogoda.setImageResource(R.drawable.cloudy);
                     break;
                 case ("малооблачно"):
                 case ("облачно с прояснениями"):
                 case ("переменная облачность"):
+
                     pogoda.setImageResource(R.drawable.smallcloudy);
                     break;
                 case ("небольшой снег"):

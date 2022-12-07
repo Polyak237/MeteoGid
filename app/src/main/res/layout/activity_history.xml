@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/spacea"
+    android:background="@drawable/spaceb"
     tools:context=".Podrobno">
 
     <ScrollView
@@ -23,7 +23,7 @@
                 android:layout_alignParentTop="true"
                 android:layout_marginTop="13dp"
                 android:fontFamily="sans-serif-condensed"
-                android:text="Город"
+                android:text="История"
                 android:textAlignment="center"
                 android:textAllCaps="false"
                 android:textColor="#FFFFFF"
@@ -54,7 +54,7 @@
                 android:layout_marginEnd="19dp"
                 android:fontFamily="sans-serif-condensed"
                 android:gravity="center"
-                android:text="Почасовой прогноз:"
+                android:text="Последние запросы:"
                 android:textColor="#FFFFFF"
                 android:textSize="24sp"
                 android:textStyle="bold" />
@@ -75,7 +75,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginStart="5dp"
-                    android:text="Сейчас:"
+                    android:text="Дата"
                     android:textAlignment="viewStart"
                     android:textSize="22sp" />
 
@@ -85,7 +85,7 @@
                     android:layout_height="match_parent"
                     android:layout_alignParentEnd="true"
                     android:layout_marginEnd="5dp"
-                    android:text="Температура"
+                    android:text="Время"
                     android:textAlignment="textEnd"
                     android:textSize="22sp" />
 
@@ -108,7 +108,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginStart="5dp"
-                    android:text="Следующий час:"
+                    android:text="Дата"
                     android:textAlignment="viewStart"
                     android:textSize="22sp" />
 
@@ -118,7 +118,7 @@
                     android:layout_height="match_parent"
                     android:layout_alignParentEnd="true"
                     android:layout_marginEnd="5dp"
-                    android:text="Температура"
+                    android:text="Время"
                     android:textAlignment="textEnd"
                     android:textSize="22sp" />
 
@@ -142,7 +142,7 @@
                     android:layout_height="match_parent"
                     android:layout_below="@+id/textView6"
                     android:layout_marginEnd="5dp"
-                    android:text="Температура"
+                    android:text="Время"
                     android:textAlignment="textEnd"
                     android:textSize="22sp" />
 
@@ -151,7 +151,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginStart="5dp"
-                    android:text="..."
+                    android:text="Дата"
                     android:textAlignment="viewStart"
                     android:textSize="22sp" />
             </androidx.cardview.widget.CardView>
@@ -173,7 +173,7 @@
                     android:layout_height="match_parent"
                     android:layout_below="@+id/textView6"
                     android:layout_marginEnd="5dp"
-                    android:text="Температура"
+                    android:text="Время"
                     android:textAlignment="textEnd"
                     android:textSize="22sp" />
 
@@ -182,7 +182,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginStart="5dp"
-                    android:text="..."
+                    android:text="Дата"
                     android:textAlignment="viewStart"
                     android:textSize="22sp" />
             </androidx.cardview.widget.CardView>
@@ -204,7 +204,7 @@
                     android:layout_height="match_parent"
                     android:layout_below="@+id/textView6"
                     android:layout_marginEnd="5dp"
-                    android:text="Температура"
+                    android:text="Время"
                     android:textAlignment="textEnd"
                     android:textSize="22sp" />
 
@@ -213,7 +213,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginStart="5dp"
-                    android:text="..."
+                    android:text="Дата"
                     android:textAlignment="viewStart"
                     android:textSize="22sp" />
             </androidx.cardview.widget.CardView>
@@ -235,7 +235,7 @@
                     android:layout_height="match_parent"
                     android:layout_below="@+id/textView6"
                     android:layout_marginEnd="5dp"
-                    android:text="Температура"
+                    android:text="Время"
                     android:textAlignment="textEnd"
                     android:textSize="22sp" />
 
@@ -244,7 +244,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginStart="5dp"
-                    android:text="..."
+                    android:text="Дата"
                     android:textAlignment="viewStart"
                     android:textSize="22sp" />
             </androidx.cardview.widget.CardView>
@@ -266,7 +266,7 @@
                     android:layout_height="match_parent"
                     android:layout_below="@+id/textView6"
                     android:layout_marginEnd="5dp"
-                    android:text="Температура"
+                    android:text="Время"
                     android:textAlignment="textEnd"
                     android:textSize="22sp" />
 
@@ -275,162 +275,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginStart="5dp"
-                    android:text="..."
-                    android:textAlignment="viewStart"
-                    android:textSize="22sp" />
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                app:cardCornerRadius="15dp"
-                app:cardBackgroundColor="@color/halfblack"
-                android:id="@+id/TomBlock7"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/TomBlock6"
-                android:layout_marginStart="19dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="19dp">
-
-                <TextView
-                    android:id="@+id/temp7"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_below="@+id/textView6"
-                    android:layout_marginEnd="5dp"
-                    android:text="Температура"
-                    android:textAlignment="textEnd"
-                    android:textSize="22sp" />
-
-                <TextView
-                    android:id="@+id/H7"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="5dp"
-                    android:text="..."
-                    android:textAlignment="viewStart"
-                    android:textSize="22sp" />
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                app:cardCornerRadius="15dp"
-                app:cardBackgroundColor="@color/halfblack"
-                android:id="@+id/TomBlock8"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/TomBlock7"
-                android:layout_marginStart="19dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="19dp">
-
-                <TextView
-                    android:id="@+id/temp8"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_below="@+id/textView6"
-                    android:layout_marginEnd="5dp"
-                    android:text="Температура"
-                    android:textAlignment="textEnd"
-                    android:textSize="22sp" />
-
-                <TextView
-                    android:id="@+id/H8"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="5dp"
-                    android:text="..."
-                    android:textAlignment="viewStart"
-                    android:textSize="22sp" />
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                app:cardCornerRadius="15dp"
-                app:cardBackgroundColor="@color/halfblack"
-                android:id="@+id/TomBlock9"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/TomBlock8"
-                android:layout_marginStart="19dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="19dp">
-
-                <TextView
-                    android:id="@+id/temp9"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_below="@+id/textView6"
-                    android:layout_marginEnd="5dp"
-                    android:text="Температура"
-                    android:textAlignment="textEnd"
-                    android:textSize="22sp" />
-
-                <TextView
-                    android:id="@+id/H9"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="5dp"
-                    android:text="..."
-                    android:textAlignment="viewStart"
-                    android:textSize="22sp" />
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                app:cardCornerRadius="15dp"
-                app:cardBackgroundColor="@color/halfblack"
-                android:id="@+id/TomBlock10"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/TomBlock9"
-                android:layout_marginStart="19dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="19dp">
-
-                <TextView
-                    android:id="@+id/temp10"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_below="@+id/textView6"
-                    android:layout_marginEnd="5dp"
-                    android:text="Температура"
-                    android:textAlignment="textEnd"
-                    android:textSize="22sp" />
-
-                <TextView
-                    android:id="@+id/H10"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="5dp"
-                    android:text="..."
-                    android:textAlignment="viewStart"
-                    android:textSize="22sp" />
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                app:cardCornerRadius="15dp"
-                app:cardBackgroundColor="@color/halfblack"
-                android:id="@+id/TomBlock11"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/TomBlock10"
-                android:layout_marginStart="19dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="19dp">
-
-                <TextView
-                    android:id="@+id/temp11"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_below="@+id/textView6"
-                    android:layout_marginEnd="5dp"
-                    android:text="Температура"
-                    android:textAlignment="textEnd"
-                    android:textSize="22sp" />
-
-                <TextView
-                    android:id="@+id/H11"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="5dp"
-                    android:text="..."
+                    android:text="Дата"
                     android:textAlignment="viewStart"
                     android:textSize="22sp" />
             </androidx.cardview.widget.CardView>
@@ -448,8 +293,7 @@
                 tools:visibility="invisible" />
 
 
-                    </RelativeLayout>
-                </ScrollView>
+        </RelativeLayout>
+    </ScrollView>
 
-
-            </RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
