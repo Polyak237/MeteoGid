@@ -318,7 +318,7 @@ public class MainActivity extends AppCompatActivity{
                 String date1X = sdfcal.format(date1);
                 sit1 = (TextView) findViewById(R.id.sit1);
                 temp1 = (TextView) findViewById(R.id.hist1);
-                sit1.setText(date1X + " \n" + jsonObject.getJSONArray("daily").getJSONObject(1).getJSONArray("weather").getJSONObject(0).getString("description"));
+                sit1.setText(date1X + " \n\n" + jsonObject.getJSONArray("daily").getJSONObject(1).getJSONArray("weather").getJSONObject(0).getString("description"));
                 temp1.setText(String.valueOf( (int) jsonObject.getJSONArray("daily").getJSONObject(1).getJSONObject("temp").getDouble("day")) + "°C");
 
                 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~                 Послезавтра                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -385,96 +385,96 @@ public class MainActivity extends AppCompatActivity{
                 Long unixH0 = jsonObject.getJSONObject("current").getLong("dt");
                 Date H0 = new Date(unixH0*1000L);
                 H0x = sdfH.format(H0);
-                sitH0 = String.valueOf(jsonObject.getJSONArray("hourly").getJSONObject(0).getJSONArray("weather").getJSONObject(0).getString("description")) + ", " +
-                        String.valueOf( (int) jsonObject.getJSONArray("hourly").getJSONObject(0).getDouble("temp") + "°C");
+                sitH0 = String.valueOf( (int) jsonObject.getJSONArray("hourly").getJSONObject(0).getDouble("temp") + "°C\n") +
+                        String.valueOf(jsonObject.getJSONArray("hourly").getJSONObject(0).getJSONArray("weather").getJSONObject(0).getString("description"));
 
                 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~                Через час                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
                 Long unixH1 = jsonObject.getJSONArray("hourly").getJSONObject(1).getLong("dt");
                 Date H1 = new Date(unixH1*1000L);
                 H1x = sdfH.format(H1);
-                sitH1 = String.valueOf(jsonObject.getJSONArray("hourly").getJSONObject(1).getJSONArray("weather").getJSONObject(0).getString("description")) + ", " +
-                        String.valueOf( (int) jsonObject.getJSONArray("hourly").getJSONObject(1).getDouble("temp") + "°C");
+                sitH1 = String.valueOf( (int) jsonObject.getJSONArray("hourly").getJSONObject(1).getDouble("temp") + "°C\n") +
+                        String.valueOf(jsonObject.getJSONArray("hourly").getJSONObject(1).getJSONArray("weather").getJSONObject(0).getString("description"));
 
                 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~                Через 2 часа                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
                 Long unixH2 = jsonObject.getJSONArray("hourly").getJSONObject(2).getLong("dt");
                 Date H2 = new Date(unixH2*1000L);
                 H2x = sdfH.format(H2);
-                sitH2 = String.valueOf(jsonObject.getJSONArray("hourly").getJSONObject(2).getJSONArray("weather").getJSONObject(0).getString("description")) + ", " +
-                        String.valueOf( (int) jsonObject.getJSONArray("hourly").getJSONObject(2).getDouble("temp") + "°C");
+                sitH2 = String.valueOf( (int) jsonObject.getJSONArray("hourly").getJSONObject(2).getDouble("temp") + "°C\n") +
+                        String.valueOf(jsonObject.getJSONArray("hourly").getJSONObject(2).getJSONArray("weather").getJSONObject(0).getString("description"));
 
                 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~                Через 3 часа                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
                 Long unixH3 = jsonObject.getJSONArray("hourly").getJSONObject(3).getLong("dt");
                 Date H3 = new Date(unixH3*1000L);
                 H3x = sdfH.format(H3);
-                sitH3 = String.valueOf(jsonObject.getJSONArray("hourly").getJSONObject(3).getJSONArray("weather").getJSONObject(0).getString("description")) + ", " +
-                        String.valueOf( (int) jsonObject.getJSONArray("hourly").getJSONObject(3).getDouble("temp") + "°C");
+                sitH3 = String.valueOf( (int) jsonObject.getJSONArray("hourly").getJSONObject(3).getDouble("temp") + "°C\n") +
+                        String.valueOf(jsonObject.getJSONArray("hourly").getJSONObject(3).getJSONArray("weather").getJSONObject(0).getString("description"));
 
                 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~                Через 4 часа                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
                 Long unixH4 = jsonObject.getJSONArray("hourly").getJSONObject(4).getLong("dt");
                 Date H4 = new Date(unixH4*1000L);
                 H4x = sdfH.format(H4);
-                sitH4 = String.valueOf(jsonObject.getJSONArray("hourly").getJSONObject(4).getJSONArray("weather").getJSONObject(0).getString("description")) + ", " +
-                        String.valueOf( (int) jsonObject.getJSONArray("hourly").getJSONObject(4).getDouble("temp") + "°C");
+                sitH4 = String.valueOf( (int) jsonObject.getJSONArray("hourly").getJSONObject(4).getDouble("temp") + "°C\n") +
+                        String.valueOf(jsonObject.getJSONArray("hourly").getJSONObject(4).getJSONArray("weather").getJSONObject(0).getString("description"));
 
                 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~                Через 5 часов                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
                 Long unixH5 = jsonObject.getJSONArray("hourly").getJSONObject(5).getLong("dt");
                 Date H5 = new Date(unixH5*1000L);
                 H5x = sdfH.format(H5);
-                sitH5 = String.valueOf(jsonObject.getJSONArray("hourly").getJSONObject(5).getJSONArray("weather").getJSONObject(0).getString("description")) + ", " +
-                        String.valueOf( (int) jsonObject.getJSONArray("hourly").getJSONObject(5).getDouble("temp") + "°C");
+                sitH5 = String.valueOf( (int) jsonObject.getJSONArray("hourly").getJSONObject(5).getDouble("temp") + "°C\n") +
+                        String.valueOf(jsonObject.getJSONArray("hourly").getJSONObject(5).getJSONArray("weather").getJSONObject(0).getString("description"));
 
                 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~                Через 6 часов                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
                 Long unixH6 = jsonObject.getJSONArray("hourly").getJSONObject(6).getLong("dt");
                 Date H6 = new Date(unixH6*1000L);
                 H6x = sdfH.format(H6);
-                sitH6 = String.valueOf(jsonObject.getJSONArray("hourly").getJSONObject(6).getJSONArray("weather").getJSONObject(0).getString("description")) + ", " +
-                        String.valueOf( (int) jsonObject.getJSONArray("hourly").getJSONObject(6).getDouble("temp") + "°C");
+                sitH6 = String.valueOf( (int) jsonObject.getJSONArray("hourly").getJSONObject(6).getDouble("temp") + "°C\n") +
+                        String.valueOf(jsonObject.getJSONArray("hourly").getJSONObject(6).getJSONArray("weather").getJSONObject(0).getString("description"));
 
                 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~                Через 7 часов                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
                 Long unixH7 = jsonObject.getJSONArray("hourly").getJSONObject(7).getLong("dt");
                 Date H7 = new Date(unixH7*1000L);
                 H7x = sdfH.format(H7);
-                sitH7 = String.valueOf(jsonObject.getJSONArray("hourly").getJSONObject(7).getJSONArray("weather").getJSONObject(0).getString("description")) + ", " +
-                        String.valueOf( (int) jsonObject.getJSONArray("hourly").getJSONObject(7).getDouble("temp") + "°C");
+                sitH7 = String.valueOf( (int) jsonObject.getJSONArray("hourly").getJSONObject(7).getDouble("temp") + "°C\n") +
+                        String.valueOf(jsonObject.getJSONArray("hourly").getJSONObject(7).getJSONArray("weather").getJSONObject(0).getString("description"));
 
                 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~                Через 8 часов                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
                 Long unixH8 = jsonObject.getJSONArray("hourly").getJSONObject(8).getLong("dt");
                 Date H8 = new Date(unixH8*1000L);
                 H8x = sdfH.format(H8);
-                sitH8 = String.valueOf(jsonObject.getJSONArray("hourly").getJSONObject(8).getJSONArray("weather").getJSONObject(0).getString("description")) + ", " +
-                        String.valueOf( (int) jsonObject.getJSONArray("hourly").getJSONObject(8).getDouble("temp") + "°C");
+                sitH8 = String.valueOf( (int) jsonObject.getJSONArray("hourly").getJSONObject(8).getDouble("temp") + "°C\n") +
+                        String.valueOf(jsonObject.getJSONArray("hourly").getJSONObject(8).getJSONArray("weather").getJSONObject(0).getString("description"));
 
                 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~                Через 9 часов                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
                 Long unixH9 = jsonObject.getJSONArray("hourly").getJSONObject(9).getLong("dt");
                 Date H9 = new Date(unixH9*1000L);
                 H9x = sdfH.format(H9);
-                sitH9 = String.valueOf(jsonObject.getJSONArray("hourly").getJSONObject(9).getJSONArray("weather").getJSONObject(0).getString("description")) + ", " +
-                        String.valueOf( (int) jsonObject.getJSONArray("hourly").getJSONObject(9).getDouble("temp") + "°C");
+                sitH9 = String.valueOf( (int) jsonObject.getJSONArray("hourly").getJSONObject(9).getDouble("temp") + "°C\n") +
+                        String.valueOf(jsonObject.getJSONArray("hourly").getJSONObject(9).getJSONArray("weather").getJSONObject(0).getString("description"));
 
                 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~                Через 10 часов                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
                 Long unixH10 = jsonObject.getJSONArray("hourly").getJSONObject(10).getLong("dt");
                 Date H10 = new Date(unixH10*1000L);
                 H10x = sdfH.format(H10);
-                sitH10 = String.valueOf(jsonObject.getJSONArray("hourly").getJSONObject(10).getJSONArray("weather").getJSONObject(0).getString("description")) + ", " +
-                        String.valueOf( (int) jsonObject.getJSONArray("hourly").getJSONObject(10).getDouble("temp") + "°C");
+                sitH10 = String.valueOf( (int) jsonObject.getJSONArray("hourly").getJSONObject(10).getDouble("temp") + "°C\n") +
+                        String.valueOf(jsonObject.getJSONArray("hourly").getJSONObject(10).getJSONArray("weather").getJSONObject(0).getString("description"));
 
                 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~                Через 11 часов                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
                 Long unixH11 = jsonObject.getJSONArray("hourly").getJSONObject(11).getLong("dt");
                 Date H11 = new Date(unixH11*1000L);
                 H11x = sdfH.format(H11);
-                sitH11 = String.valueOf(jsonObject.getJSONArray("hourly").getJSONObject(11).getJSONArray("weather").getJSONObject(0).getString("description")) + ", " +
-                        String.valueOf( (int) jsonObject.getJSONArray("hourly").getJSONObject(11).getDouble("temp") + "°C");
+                sitH11 = String.valueOf( (int) jsonObject.getJSONArray("hourly").getJSONObject(11).getDouble("temp") + "°C\n") +
+                        String.valueOf(jsonObject.getJSONArray("hourly").getJSONObject(11).getJSONArray("weather").getJSONObject(0).getString("description"));
 
 
             } catch (JSONException e) {
@@ -492,7 +492,6 @@ public class MainActivity extends AppCompatActivity{
                 case ("малооблачно"):
                 case ("облачно с прояснениями"):
                 case ("переменная облачность"):
-
                     pogoda.setImageResource(R.drawable.smallcloudy);
                     break;
                 case ("небольшой снег"):
@@ -507,6 +506,9 @@ public class MainActivity extends AppCompatActivity{
                     break;
                 case ("дождь"):
                     pogoda.setImageResource(R.drawable.rain);
+                    break;
+                case ("туман"):
+                    pogoda.setImageResource(R.drawable.fog);
                     break;
                 default: {}
                 break;

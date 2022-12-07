@@ -60,15 +60,16 @@
                 android:textStyle="bold" />
 
             <androidx.cardview.widget.CardView
-                app:cardCornerRadius="15dp"
                 android:id="@+id/TomBlock0"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/Last_hist"
                 android:layout_marginStart="19dp"
-                app:cardBackgroundColor="@color/halfblack"
                 android:layout_marginTop="10dp"
-                android:layout_marginEnd="19dp">
+                android:layout_marginEnd="19dp"
+                app:cardBackgroundColor="@color/halfblack"
+                app:cardCornerRadius="15dp"
+                app:cardElevation="100dp">
 
                 <TextView
                     android:id="@+id/H0"
@@ -101,7 +102,8 @@
                 android:layout_below="@+id/TomBlock0"
                 android:layout_marginStart="19dp"
                 android:layout_marginTop="10dp"
-                android:layout_marginEnd="19dp">
+                android:layout_marginEnd="19dp"
+                app:cardElevation="100dp">
 
                 <TextView
                     android:id="@+id/H1"
@@ -134,7 +136,8 @@
                 android:layout_below="@+id/TomBlock1"
                 android:layout_marginStart="19dp"
                 android:layout_marginTop="10dp"
-                android:layout_marginEnd="19dp">
+                android:layout_marginEnd="19dp"
+                app:cardElevation="100dp">
 
                 <TextView
                     android:id="@+id/hist2"
@@ -165,7 +168,8 @@
                 android:layout_below="@+id/TomBlock2"
                 android:layout_marginStart="19dp"
                 android:layout_marginTop="10dp"
-                android:layout_marginEnd="19dp">
+                android:layout_marginEnd="19dp"
+                app:cardElevation="100dp">
 
                 <TextView
                     android:id="@+id/hist3"
@@ -196,7 +200,8 @@
                 android:layout_below="@+id/TomBlock3"
                 android:layout_marginStart="19dp"
                 android:layout_marginTop="10dp"
-                android:layout_marginEnd="19dp">
+                android:layout_marginEnd="19dp"
+                app:cardElevation="100dp">
 
                 <TextView
                     android:id="@+id/hist4"
@@ -227,7 +232,8 @@
                 android:layout_below="@+id/TomBlock4"
                 android:layout_marginStart="19dp"
                 android:layout_marginTop="10dp"
-                android:layout_marginEnd="19dp">
+                android:layout_marginEnd="19dp"
+                app:cardElevation="100dp">
 
                 <TextView
                     android:id="@+id/hist5"
@@ -258,7 +264,8 @@
                 android:layout_below="@+id/TomBlock5"
                 android:layout_marginStart="19dp"
                 android:layout_marginTop="10dp"
-                android:layout_marginEnd="19dp">
+                android:layout_marginEnd="19dp"
+                app:cardElevation="100dp">
 
                 <TextView
                     android:id="@+id/hist6"
@@ -289,7 +296,8 @@
                 android:layout_below="@+id/TomBlock6"
                 android:layout_marginStart="19dp"
                 android:layout_marginTop="10dp"
-                android:layout_marginEnd="19dp">
+                android:layout_marginEnd="19dp"
+                app:cardElevation="100dp">
 
                 <TextView
                     android:id="@+id/temp7"
@@ -320,7 +328,8 @@
                 android:layout_below="@+id/TomBlock7"
                 android:layout_marginStart="19dp"
                 android:layout_marginTop="10dp"
-                android:layout_marginEnd="19dp">
+                android:layout_marginEnd="19dp"
+                app:cardElevation="100dp">
 
                 <TextView
                     android:id="@+id/temp8"
@@ -351,7 +360,8 @@
                 android:layout_below="@+id/TomBlock8"
                 android:layout_marginStart="19dp"
                 android:layout_marginTop="10dp"
-                android:layout_marginEnd="19dp">
+                android:layout_marginEnd="19dp"
+                app:cardElevation="100dp">
 
                 <TextView
                     android:id="@+id/temp9"
@@ -382,7 +392,8 @@
                 android:layout_below="@+id/TomBlock9"
                 android:layout_marginStart="19dp"
                 android:layout_marginTop="10dp"
-                android:layout_marginEnd="19dp">
+                android:layout_marginEnd="19dp"
+                app:cardElevation="100dp">
 
                 <TextView
                     android:id="@+id/temp10"
@@ -413,7 +424,8 @@
                 android:layout_below="@+id/TomBlock10"
                 android:layout_marginStart="19dp"
                 android:layout_marginTop="10dp"
-                android:layout_marginEnd="19dp">
+                android:layout_marginEnd="19dp"
+                app:cardElevation="100dp">
 
                 <TextView
                     android:id="@+id/temp11"
