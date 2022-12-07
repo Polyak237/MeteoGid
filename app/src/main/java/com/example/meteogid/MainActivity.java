@@ -508,6 +508,7 @@ public class MainActivity extends AppCompatActivity{
                     pogoda.setImageResource(R.drawable.rain);
                     break;
                 case ("туман"):
+                case ("полный туман"):
                     pogoda.setImageResource(R.drawable.fog);
                     break;
                 default: {}
